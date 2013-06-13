@@ -20,22 +20,38 @@
 \usepackage{multirow}
 \usepackage{listings}
 %\usepackage{natbib}
+
+%%%% TABLES
+\usepackage{dcolumn}
+\newcolumntype{d}{D{.}{.}{-1}}
+%%
+\usepackage{booktabs}
+%%
+\usepackage{longtable}
+\setlength{\doublerulesep}{0pt}
+%%
+\usepackage{multirow}
+\newcommand{\mr}[1]{\multirow{2}{2em}{#1}}
+%%
+%\usepackage{array}
+
+
 \begin{document}
 %
 \frontmatter          % for the preliminaries
 %
 \pagestyle{headings}  % switches on printing of running heads
-\addtocmark{Running Big Data on EGI Federated Cloud} % additional mark in the TOC
+\addtocmark{Running Big Data on the EGI Federated Cloud} % additional mark in the TOC
 %
 \mainmatter              % start of the contributions
 %
-\title{Running Big Data on EGI Federated Cloud}
+\title{Running Big Data on the EGI Federated Cloud}
 %
-\titlerunning{VM Image Management}  % abbreviated title (for running head)
+\titlerunning{Big Data on FedCloud}  % abbreviated title (for running head)
 %                                     also used for the TOC unless
 %                                     \toctitle is used
 %
-\author{J. L\'opez Cacheiro\inst{1}, A. Sim\'on\inst{1}, E. Freire\inst{1}, R. Rosende\inst{1}, I. D\'iaz\inst{1}, A. Feij\'oo\inst{1}, P. Rey\inst{1}, C. Fern\'andez\inst{1} and B. Parak\inst{2}}
+\author{J.~L\'opez Cacheiro\inst{1}, A.~Sim\'on\inst{1}, J.~Villasuso\inst{1}, E.~Freire\inst{1}, R.~Rosende\inst{1}, I.~D\'iaz\inst{1}, A.~Feij\'oo\inst{1}, P.~Rey\inst{1}, C.~Fern\'andez\inst{1} and B.~Parak\inst{2}}
 %
 %\authorrunning{First Author et al.}   % abbreviated author list (for running head)
 %
@@ -56,289 +72,345 @@ Second Author (Institution of second author's affiliation)}
 \maketitle              % typeset the title of the contribution
 
 \begin{abstract}
-The new federated cloud infrastructures require the development of specific utilities and technical solutions. One of the most crucial features is the virtual image management and distribution system.
-This paper summarizes the work developed within EGI FedCloud taskforce during the last year to deploy a sustainable and scalable federated VM image management.
+Big Data is an emerging technology that could benefit from existing developments in cloud technologies. In this paper we evaluate the suitability of FedCloud--the federated cloud infrastructure developed inside EGI--to perform Big Data analytics using Hadoop. Due to the size of the tests performed, they represent also a real benchmark of the performance of FedCloud under heavy usage conditions, providing the first results about the scalability of the system.
+
+% usability
+% estability
+
 \end{abstract}
 
 %
 \section{Introduction}
 \label{sect-introduction}
-%
-The number of projects based on Cloud IaaS resources are increasing each day. Projects like EGI-inspire are making efforts to help abstract away the differences between different API's and allow resource consumers to be cloud agnostic.
-Cloud agnosticism will become the new Rosetta Stone for cloud developers and site administrators. Different projects are using different API's, cloud frameworks, storage systems etc. 
-However this technology agnosticism increases the interoperability challenges. One of the most pressing forces is the VM images managing within a federated cloud infrastructure.
-A federated cloud increases the difficulty, it uses different cloud APIs, different cloud vendors which require different image formats, different contextualisation mechanism and so on. 
-This paper is focused on some of the issues surrounding image management in a federated cloud environment and how it was solved by EGI FedCloud taskforce.
-It is organised in the following sections. First, Section~\ref{sect-relatedwork} presents the state of the art regarding cloud frameworks VM management, Section~\ref{sect-vmcaster} describes the VMcaster/VMcatcher image management tools, how it was implemented by EGI FedCloud project and how it was configured at CESGA. 
-Section~\ref{sect-handlers} explains how VMcatcher event handlers work, and how allow different plugins for cloud frameworks like OpenNebula or OpenStack to synchronize VM images between heterogeneous cloud technologies. 
-Finally Section~\ref{sect-conclusions} will present the conclusions and future work.  
+% Big Data 
+% Hadoop 
+% Cloud 
+% Federated cloud
+% FedCloud
 
-%\subsection{User Services}
+% Big Data on federated Cloud
+% Amazon Hadoop service
+% BC-PDM: Because of the limitations of the current system, China Mobile initiated an experimental project to develop a parallel data mining tool set on Hadoop and evaluated it against its current system. They named the project Big Cloud–based Parallel Data Mining (BC-PDM) [Hadoop in Action Book page 269]
 
+% Short summary and main objective of the work
+Nowadays, the possibility to run Big Data calculations over federated clouds is a topic that is attracting the interest of the research community. Federation of resources poses serious challenges both from the cloud and Big Data perspectives. The aim of this paper is to evaluate the suitability of the FedCloud federated cloud infrastructure that it is being developed inside EGI to run typical Big Data analytics using Hadoop. 
 
-%\begin{figure}[h!]
-%\centering
-%\includegraphics[width=60mm,angle=90]{./PSFIGs/user-services.eps}
-%\caption{Use case in IBERGRID}\label{figUSER}
-%\end{figure}
-\section{Related Work}
-\label{sect-relatedwork}
-The use of Cloud infrastructures in science has been documented, and it is a very promising field, but integrating Clouds with the Grid is a challenge, as related on Dillon et al.~\cite{Dillon2010}. Goasguen et al.~\cite{Goasguen2012} presents the results of an internal production cloud service in CERN and suggestions to expand it to another Grid sites. Zhao et al.~\cite{Zhao2012} presents a infrastructure of a dozen computing sites using OpenNebula as the management solution. It concludes that Clouds are very useful for science, but there are still many performance issues to be resolved. Hoffa et al.~\cite{Hoffa2008} reached similar conclusions regarding cloud vs local deployments.
+% Big Data
+Big Data is one of the buzzwords that sounds everywhere, the Big Data community is working to extend the scalability of traditional databases (RDMS) using new technologies based on a share-nothing architecture. In this arena, one of the most well-known solutions is Hadoop~\cite{hadoop}, an open-source framework that implements the MapReduce computational paradigm on top of a parallel HDFS filesystem.
 
-There are also many works that compare the different solutions for VM Management, like Xiaolong et al.~\cite{Xiaolong2012}, which compares OpenNebula and Openstack, and Laszewski et al.~\cite{Laszewski2012}, which does a more complete survey including Eucalyptus, Nimbus and some other solutions. The existence of numerous trade-offs and fragmented market for these tools motivated us to support cross-grid environments.
+% Previous attempts to run Hadoop on the Cloud
 
-On the realm of security, our solution emphasizes the authentication of users and the validation of VMs. There are other works on the area, but some, like Xi et al.~\cite{Xi2012} are concerned more with running trusted VMs on on untrusted environments, which can be seen as the opposite problem, and many others, like Schwarzkopf et al.~\cite{Schwarzkopf2012} are concerned with improving the internal security of VMs maintained by Cloud users instead of infrastructure operators.
+% Amazon EC2
 
-There are still other comparable solutions, Lagar-Cavilla et al.~\cite{Lagar-Cavilla2009} use a non-local fork mechanism to spawn many copies of a VM across many sites, but this method would be at odds with current Grid practices. Diaz et al.~\cite{Diaz2012} have a similar system that bridges OpenNebula and OpenStack, but it uses the Amazon EC2 API, which has licensing issues preventing us for using it, and does not address the authorization and validation of VMs. On a more partial resemblance, Maurer et al.~\cite{Maurer2013} also automates some aspects of VM management and updates using an autonomous system, and Django et al.~\cite{Django2013} changes the context of VMs on the fly to do load balancing and improve brokering. This last functionality would be invaluable for Grid operators, which must frequently tend to processes that get stuck due to unrealistic brokering requirements, and would also avoid many downtimes due to reconfiguration.
+% FedCloud
+The EGI Federated Cloud Task Force~\cite{fedcloud} started its activity in September 2011 with the aim of creating a federated cloud testbed--named FedCloud--to evaluate the utilization of virtualized resources inside the EGI production infrastructure. Even if the development is still in progress, the testbed is already available for experimentation by the different user communities. A more detailed description of the EGI FedCloud infrastructure is given in~\cite{egifedcloud}.
 
 
+% Aim & structure 
+The aim of our work is to do an initial assessment of the suitability of FedCloud to run Hadoop through a series of real-world benchmarks. The paper is organized as follows: in Section~\ref{sect-methodology} we describe the methodology used to deploy Hadoop inside the FedCloud federated cloud infrastructure; in Section~\ref{sect-results} we show the results obtained after running several deployment and execution benchmarks based on the analysis of two common data sources: Encyclop{\ae}dia Britannica and Wikipedia; finally in Section~\ref{sect-conclusions} we present the main conclusions of this work, summarizing the main problems encountered as well as outlining the future steps that could be taken to provide Hadoop as a on-demand service in FedCloud.
 
-\section{VMcaster/VMcatcher image management interface}
-\label{sect-vmcaster}
-VMcaster~\cite{vmcaster} and VMcatcher~\cite{vmcatcher} are two different tools to generate and subscribe to virtual machine image lists.
-These tools use an internal database (similar to a podcast syndication or a Linux package manager) where images information and lists are stored into an internal SQLite database.
-SQLite has proved more than adequate for the low transaction rate of a image list subscriber and so deployment issues are just backing up a database file.
-In many senses VMcaster/VMcatcher tools are similar to Debian's \textit{aptitude} or RedHat's \textit{yum} utilities. 
 
-These tools try to match the requirements set by the now completed HEPiX virtualisation working group~\cite{hepix}.
-The main task of this working group was to provide to sites a way to control and mange Virtual Machine (VM) Image's provided by experiments, and execute the VMs in a trusted environment (similar to the current computing environment provided under Grid computing).
-During the last year the EGI federated cloud task force has recommended VMcatcher as well for installation at all cloud resource providers in their collaboration and the status of the integration with OpenStack and OpenNebula.
+\section{Methodology}
+\label{sect-methodology}
+In this Section we describe the methodology that we have followed to deploy a Hadoop cluster instance inside the FedCloud federated cloud infrastructure. Basically, three steps were involved in the process: 
+\begin{enumerate}
+\item \emph{Cluster startup}: obtaining the resources necessary to form the cluster from each of the sites in FedCloud
+\item \emph{Hadoop configuration}: configuring a Hadoop cluster using the VMs from step 1
+\item \emph{Benchmark execution}: using the Hadoop cluster to run various MapReduce jobs
+\end{enumerate}
+Each of the steps is described in more detail in the following subsections.
 
-In this case since the software is made with the Grid in mind and to avoid man in the middle security issues, VMcaster/VMcatcher tools are based on the X.509 certificate authentication model.
-All the image lists are signed by an authenticated endorser with his/her personal X.509 certificate. 
-This means all images are referenced by an Virtual Machine Image List which contains a secure hash (SHA512) signed using X.509 personal certificates (provided by the image list endorser). 
-These Virtual Machine Image Lists are published, and interested sites subscribe to the Lists in a catalogue at the site. 
+\subsection{Cluster startup}
+\label{ssect-cluster}
 
-When it is received an instantiation request, the image validity is checked. If the Virtual Machine Image List is valid, the Image is contextualised and then instantiated (see figure \ref{fig:infrastructure}). 
-Using this mechanism a virtual image can be checked for validity, all image lists are signed and it provide a version number and expiration date. If the image list does not satisfy these requirements the image is not instantiated and the request is rejected.
-Another important feature of VMcaster/VMcatcher is the support of cloud framework agnostic tools, these tools do not depend on the cloud solution used by the sites. Besides it can be integrated with different frameworks using different plugins to use the new images directly from for example, OpenNebula or OpenStack (see section \ref{sect-handlers} for more information).
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=1\textwidth]{vmcaster_vmcatcher.png}
-\caption{VMcaster and VMcatcher infrastructure.}
-\label{fig:infrastructure}
-\end{figure}
-
-\subsection{VMcaster}
-VMcaster is a simple tool for publishing, managing and updating virtual machines image lists which follows the HEPix image list specifications.
-All the image lists and metadata created by VMcaster are signed and trusted with a X.509 certificate.
-This provides a mechanism by which a virtual image can be checked for validity by any subscriber. Any user can check the image list expiration date, if it was revocated or it has been tampered by a third party.
-All images and image lists have an UUID. These UUID's should be globally unique and consequently the UUID should be generated using a UUID generator using suitable seeds. As example for Debian, Redhat and Scientific Linux users can execute the following UUID generator:
-\begin{verbatim}
-$ uuidgen
-
-dfc470ab-0845-4c3b-bc6a-02f990388a17
-\end{verbatim}
-We can use the new UUID with VMcaster to create a empty image list:
-\begin{verbatim}
-$ vmcaster --select-imagelist dfc470ab-0845-4c3b-bc6a-02f990388a17 \
---add-imagelist
-\end{verbatim}
-This command generates an empty image list in our local \textit{vmcaster.db} database (not published yet) with a few predefined objects. We can query the image list ID to see the current object list.
-The database information is shown in JSON format:
-\begin{verbatim}
-$ vmcaster --select-imagelist dfc470ab-0845-4c3b-bc6a-02f990388a17 \
---show-imagelist
-{
-    "hv:imagelist": {
-        "dc:identifier": "dfc470ab-0845-4c3b-bc6a-02f990388a17"
-    }
-}
-\end{verbatim}
-The object \textit{dc:identifier} contains always an UUID and it is included in images or image lists. 
-At this moment the image list does not include any relevant information but thanks to VMcaster utility the image list endorser can introduce new objects and information.
-The most important objects are: the image title, its description, its endpoint (a valid \textit{url}) and also the endorser unique certificate DN. 
-These values can be included into the internal database running these commands, as example:
-\begin{verbatim}
-$ vmcaster --select-imagelist <image_list_UUID> \
---key-set-imagelist "dc:title"\ 
---key-value-imagelist "New Image List"
-
-$ vmcaster --select-imagelist <image_list_UUID> \ 
---key-set-imagelist "dc:source" --key-value-imagelist "CESGA"
-
-$ vmcaster --select-imagelist <image_list_UUID> \ 
---key-set-imagelist "dc:description"\ 
---key-value-imagelist "My image list for internal users"
-
-$ vmcaster --select-imagelist <image_list_UUID> \ 
---key-set-imagelist "hv:uri" --key-value-imagelist \ 
-"http://cloud.cesga.es/files/image.list"
-
-$ vmcaster --select-endorser "/DC=es/DC=irisgrid/O=cesga/CN=alvarosimon" \
---key-set-endorser "dc:creator" --key-value-endorser "Alvaro Simon"
-\end{verbatim}
-
-Endorsers can also import image lists (in JSON or MIME format) to streamline the image list creation. At this moment the endorser can include new images metadata into the new image list catalogue.
-Image insertion procedure is similar to image list creation \textit{vmcaster --select-image <UUID> --key-set-image <IMAGE TAG> --key-value-image <VALUE>}.  
-The image list endorser only has to generate a new UUID and insert the relevant objects, in this case:
+% VM template & Marketplace
+First of all, in order to simplify the later configuration, we created a customized virtual machine (VM) image template that contains all the software necessary to run Hadoop. This image is based on Scientific Linux 6.4 and contains the following customizations:
 \begin{itemize}
- \item \textit{dc:title}: Image title name
- \item \textit{sl:comments}: It includes image comments (user login and password, software included etc).
- \item \textit{sl:osversion}: The Operating System version as LSB compliant. As example Scientific Linux release 6.4 (Carbon).
- \item \textit{sl:arch}: System architecture (x86\_64, i386 etc).
- \item \textit{sl:os}: Operating System name (Ubuntu, Debian, RedHat..).
- \item \textit{hv:uri}: Image location endpoint. The image must be accesible from this url. As example \url{http://cloud.cesga.es/images/debian-6.0.5-x86_64-base.qcow2}
- \item \textit{hv:format}: VM image format (QCOW2, RAW)
+\item \emph{Firewall:} iptables is configured to allow inter-cluster communication.
+\item \emph{SSH:} enable root access through ssh public key authentication (\emph{authorized\_keys}).
+\item \emph{Modules:} we make use of the Modules package to simplify the deployment of the software needed to run Hadoop.
+\item \emph{Java:} we use Oracle Java JDK 1.6.0\_33 because it offers better performance than the OpenJDK version. It is also configured through Modules to allow simple migration to other Java versions.
+\item \emph{Hadoop:} both Hadoop-1.0.3 and Hadoop-1.0.4 are included. The configuration using Modules makes easy to include additional versions and decide the one we want to use when starting the Hadoop cluster.
 \end{itemize}
-All the new images should be assigned to a image list, we can include the same image in different image lists. To add a new image to a specific image list:
-
-\begin{verbatim}
-$ vmcaster --select-imagelist <IMAGE_LIST_UUID> --imagelist-add-image\ 
---select-image <IMAGE_UUID>
-\end{verbatim}
-
-VMcaster can be configured to syncronize and upload local images to a specific server endpoint. This mechanism allows to VMcaster users to upload images and image lists to a web server in an automated way.
-This information is located into a configuration file (\textit{/etc/vmcaster/vmcaster.cfg}). This mechanism is very useful for Image List endorsers as they can use this configuration file to include several servers to keep the image lists up to date in a short period of time.
-\textit{vmcaster.cfg} file uses this schema:
-\begin{verbatim}
-[SERVER NAME]
-server = "myserver.org"
-protocol = "scp"
-uriMatch = "https://myserver.org/"
-uriReplace = "user@myserver.org:/var/www/html/"
-\end{verbatim}
-In this case VMcaster will use \url{myserver.org} web page to upload any image or image list. 
-\textit{vmcaster.cfg} accepts different communication protocols such scp, GSIdCap~\cite{dcache} or a local transmission. If this configuration file is set, VMcaster will upload images automatically using this command:
-
-\begin{verbatim}
-vmcaster --upload-image <local_image_path> --select-image <IMAGE_UUID>
-\end{verbatim}
-
-VMcaster detects the image size and generates a SHA512 hash for each uploaded image, when this process is complete the updated information is included into the VMcaster database automatically.
-
-At the end the information can be gathered from the local database, as example using JSON format image list:
-\begin{verbatim}
-{
-    "hv:imagelist": {
-        "dc:date:created": "2013-03-18T16:52:55Z", 
-        "dc:date:expires": "2014-04-15T16:52:55Z", 
-        "dc:description": "CESGA image list for internal usage", 
-        "dc:identifier": "2204eed5-f37e-45b9-82c6-85697356109c", 
-        "dc:source": "CESGA", 
-        "dc:title": "CESGA image list", 
-        "hv:endorser": {
-            "hv:x509": {
-                "dc:creator": "Alvaro Simon Garcia", 
-                "hv:ca": "/DC=es/DC=irisgrid/CN=IRISGridCA", 
-                "hv:dn": "/DC=es/DC=irisgrid/O=cesga/CN=alvarosimon", 
-                "hv:email": "asimon@cesga.es"
-            }
-        }, 
-        "hv:images": [
-            {
-            {
-                "hv:image": {
-                    "dc:description": "UI-UMD3.0.0", 
-                    "dc:identifier":\ 
-"9d6b140f-7a08-4f8c-8c25-3564bcb50e33", 
-                    "dc:title": "EMI-UI", 
-                    "hv:format": "QCOW2", 
-                    "hv:hypervisor": "QEMU,KVM",  
-                    "hv:uri":\ 
-"http://cloud.cesga.es/images/test_ui_image.QCOW2", 
-                    "hv:version": "0.0.1", 
-                }
-            }
-        ], 
-        "hv:uri": "http://cloud.cesga.es/files/image.list", 
-        "hv:version": "2.9"
-    }
-}
-\end{verbatim}
-Reading the image list example in JSON format a future subscriber can indentify the available images and also the image list creation/expiration dates or the endorser DN.
-
-When the image list is ready and updated the endorser can publish it to all sites included into \textit{vmcaster.cfg} file. 
-The procedure is quite similar to image uploading, but the image must be signed by the endorser certificate to validate its authenticity.
-VMcaster asks for user certificate password and upload the image list to its final endpoint, this can be executed with a single command:
-\begin{verbatim}
-$ vmcaster --select-imagelist <IMAGE_LIST_UUID> --upload-imagelist
-\end{verbatim}
-This procedure allows different image endorsers to distribute and update image catalogs among different endpoints and sites (which is suitable for a federated architecture).
-Besides all image lists has endorsed information about endorser certificate public key, image download endpoint, initial global validity, etc. 
-That means valid images can be selected, downloaded and instantiated and tested by different resource provides. 
-This task is done by VMcatcher utility described in the next section.
 
 
-\subsection{VMcatcher}
-VMcatcher utility allows image consumers to subscribe to VM Image Lists generated by VMcaster. 
-Using this utility users can select and download trusted images.
-This utility cache the images selected in a image list, validates the list with X.509 based public key cryptography, and also checks  the images SHA512 hashes. 
-Another important feature of VMcaster is that provides events for further applications to process, update or expire changes of virtual machine images. 
-These events can be used by event listeners or event handlers to react to specific changes (when a image is set as invalid or a it is available a new image update). 
+This customized image was uploaded and registered in the EGI Marketplace~\cite{marketplace} which provides a common place where where we can can store images. Unfortunately, the Marketplace does not store the VM images into a common repository it just shows which resource providers (RPs) have the VM image available at their endpoint. So, after uploading it, each RP has to manually download the image to his local site in order to make it available at his endpoint. At this moment, there is no automated way to perform this step so the distribution of the VM template to all the sites is a time consuming effort that involves personal contact with the FedCloud administrators at each site.
 
-VMcatcher and VMcaster works in a similar way. The software is based upon a local database that stores subscriptions to VM image lists, registered endorsers, and which images belong to which subscriptions. 
-It allows to select images to be selected for subscription. An user can select the desired image lists and then set the desired images subscription.
-Subscribed images can be downloaded, verified and cached. VMcatcher also verifies if the cached images have expired or not, and if images are valid or has expired, in which case it is moved to an expiry directory.
-The image consumer must trust in a endorser, in this case users can include and trust in a image endorser including his/her X.509 certificate Distinguished Name (DN).
-To include a new trusted endorser:
-\begin{verbatim}
-$ vmcatcher_endorser --create --endorser_uuid='Alvaro Simon' \
---subject='/DC=es/DC=irisgrid/O=cesga/CN=alvarosimon' \
---issuer='/DC=es/DC=irisgrid/CN=IRISGridCA'
-\end{verbatim}
-And now the user only has to download the desired image list from the endpoint and import it into a local VMcaster database:
-\begin{verbatim}
-$ wget http://cloud.cesga.es/files/image.list
-$ vmcatcher_subscribe -s file:////`pwd`/image.list
-\end{verbatim}
-At this point the image user can show and select any image UUID from the new list to be downloaded. 
-The Image list may vary (image endorse includes new images, revoke old ones, etc), in any case the local image list database should be updated frequently executing the command \textit{vmcatcher\_subscribe -U}.
-This command checks the image lists endoint and updates the local database accordingly.
-After image selection the images can be downloaded and updated to a local cache running:
-\begin{verbatim}
-$ vmcatcher_cache
-\end{verbatim}
+It should be noted that we could have also used a vanilla SL6 or Debian image from the Marketplace instead of using our customized image, which main purpose it is just to allow us to pre-install software and store our ssh credentials.
 
-The new downloaded images are stored into \textit{<VMCATCHER\_DIR>/cache} directory, meanwhile revoked or expired images are moved to \textit{<VMCATCHER\_DIR>/cache/expired} directory. 
-This mechanism prevents that old or revoked images are used by mistake. VMcatcher also raises some events if the image is downloaded, revoked or removed. 
-These pre-defined events can be used by the cloud frameworks to perform different actions.
 
-\section{Image management event handlers}
-\label{sect-handlers}
-VMcatcher and VMcaster are useful tools to disseminate and keep updated our images but they do not interact with cloud frameworks directly.
-VMcatcher was written in Python and generates pre-defined events that can be received by an asynchronous callback subroutine or event handler.
-Fortunately the cloud community has developed event handlers to interact with the most popular frameworks like OpenNebula or CloudStack.
-OpenNebula event handler~\cite{onevent} was developed by the CESGA team and currently is available from the VMcaster repository. 
-The \textit{vmcatcher\_eventHndlExpl\_ON} package provides a new python and cron script which detects VMcatcher events. 
-This script detects several VMcatcher event types. In this case OpenNebula handler only waits for a new Expire or Available VMcatcher event.
-If VMcatcher raises a \textit{AvailablePostfix} event, this is detected by \textit{vmcatcher\_eventHndlExpl\_ON} event handler and reads the new image attributes such UUID, image name, description and image format.
+% Client: rOCCI + VOMS
+The next step is to instantiate the virtual machines that will form the Hadoop cluster, for this purpose we make use of the new implementation of the OCCI 1.1 API under rOCCI~\cite{rocci} as well as our VOMS proxy credentials. The new rOCCI implementation provides several advantages like the fact that we are able to avoid the previous issue that all user certificates request are mapped to a single ONE\_USER account.
+Additionally, the usage of VOMS over plain X509 auth greatly simplifies the access to the different sites that form FedCloud without the need to request each site to give access to our X509 certificate's DN.
+
+Unfortunately FedCloud does not count with a workload management system, so each VM creation request must be sent to the appropriate endpoint. This means that we have to take care of the partitioning of the cluster between the different FedCloud sites.
+
+%\begin{figure}[h]
+%\centering
+%\includegraphics[width=0.8\textwidth]{figures/occi_opennebula.png}
+%\caption{OCCI 1.1 server and x509 auth for OpenNebula.}
+%\label{fig:occi1}
+%\end{figure}
+
 \begin{figure}[h]
 \centering
-\includegraphics[width=1\textwidth]{ONeventhandler.png}
-\caption{OpenNebula event handler.}
-\label{fig:onevent}
+\includegraphics[width=0.74\textwidth]{figures/client-v2.png}
+\caption{Cluster startup through using rOCCI + VMOS from a single UI.}
+\label{fig:client}
 \end{figure}
-If a new image is downloaded (\textit{AvailablePostfix} event), the OpenNebula event handler gets the image information, generates a new OpenNebula template and includes the new image into the local OpenNebula datastore (see figure \ref{fig:onevent}). 
-For security reasons, the new images are not public, they are only available for the oneadmin user. The OpenNebula administrator should verify the new image first (checking its contextualisation script, if the image is executed correctly etc).
-After this period of time the image status is changed to be available for external users. 
-Moreover if VMcatcher detects an image revocation the OpenNebula event handler search the image UUID from OpenNebula image database and it is set to disable status.
-The image is not removed by the event handler, it should be removed by the site administrator from the OpenNebula datastore.
 
-The OpenNebula event handler is not the only one. OpenStack administrators can also use Glancepush~\cite{glancepush} service to keep their local image catalog updated. 
-This service was developed at IN2P3 and it works in a similar way than the OpenNebula event handler. 
-In this case Glancepush updates the OpenStack Image Service (Glance) if it detects any image change from VMcatcher tool. 
-The new package (\textit{glancepush-vmcatcher}) is available from IN2P3 ftp server, and it only requires a working glance service and an OpenStack user account to push images into the catalog.
+% Resources used
+About the resources used by each of the instances, in order to increase the concurrent number of VMs, we used small size VM instances with 1GB of RAM and 1 CPU.
 
-%\section{Use Case: EGI SA2.3 verification image repository}
-%\label{sect-usecase}
-%This is my text 
 
-\section{Conclusions and Future work}
+\subsection{Hadoop configuration}
+\label{ssect-hadoop}
+% Basics about Hadoop services needed: hadoop-master, slaves
+After having the cluster running, our next step is to prepare it to run Hadoop. As it has been explained in \ref{ssect-cluster} The software necessary is already pre-deployed in the nodes thanks to the customized VM template used so we only have to configure Hadoop. Our Hadoop cluster will consist basically of one \emph{master} node that will run the \emph{namenode}, \emph{secondarynamenode} and \emph{jobtracker} services and a variable number of slaves depending on the size of the cluster, each of them running the \emph{tasktracker} and \emph{datanode} services. For example in the case of a 101 node cluster, one node will be configured as master and the remaining 100 as slaves. 
+
+
+% TODO: figure showing the master/slave setup and the services
+
+
+% Hadoop configuration
+%% Hadoop 1.0.3
+%% Oracle Java JDK 1.6.0_33
+%% Modules
+Due to the fact that we are using small VM instances with just 1GB of RAM and 1 CPU we decide to run just one tasktracker and one datanode per slave. In the case of the master node we have also taken care to tune the configuration in order to avoid exhausting the memory available. The tuned configuration parameters are given in Table \ref{table-cont}. The column type identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}.
+
+These parameters have been configured to adapt the Hadoop cluster to resources available--1GB of RAM and 1 CPU per node. The $dfs.replication$ parameter indicates how many copies we want to store of each block, in this case we use 3 replicas that will allow different nodes to perform the same mapreduce tasks reducing the degradation that could be experienced when using heterogeneous VMs running under hypervisors with different load conditions. The $mapred.tasktracker.map.tasks.maximum$ and $reduce.tasks.maximum$ are set to 1 because we only have 1 CPU to run both services and the HADOOP\_HEAPSIZE is set to 512MB to allow both running at the same time without exhausting the node's memory. The number of reduce tasks, $mapred.reduce.tasks$, is set to 95\% of the number of slaves in the Hadoop cluster. 
+
+As we will see in Section \ref{ssect-execution} our Hadoop installation will cope with two very different use cases that influence our decission about the $dfs.block.size$ values to use. In the case of the Enciclop{\ae}dia Britannica's use case the block size is set to 1MB and in the Wikipedia's use case, that uses a much larger data set, to 64MB. Under this conditions both use cases generate less than 700 total mapreduce tasks which can be handle well by our hadoop master node--remember that it has only 1GB of RAM and 1 core.
+
+
+%% table with the parameters used
+% TODO: complete the table
+\begin{table}[h!]
+\caption{Tuned Hadoop configuration for small VM instances. It includes both the HDFS and MapReduce parameters used.}
+\label{table-conf}
+%
+\vspace{-0.5em}
+%
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+%Parameter				& Type\tablenotemark[a] & Value	 	\\
+Parameter				& Type 			& Value	 	\\
+\midrule
+$fs.inmemory.size.mb$			& core-site		& 200MB	 	\\
+$io.file.buffer.size$                  	& core-site		& 128KB  	\\
+$mapreduce.task.io.sort.factor$ 	& core-site		& 100	 	\\
+$mapreduce.task.io.sort.mb$ 	 	& core-site		& 100	 	\\
+$mapred.tasktracker.map.tasks.maximum$ 	& mapred-site		& 1	 	\\
+$mapred.tasktracker.reduce.tasks.maximum$ & mapred-site		& 1	 	\\
+$mapred.reduce.tasks$ 			& mapred-site		& 0.95*<\# slaves>\\
+$dfs.datanode.du.reserved$ 		& hdfs-site		& 1GB	 	\\
+$dfs.block.size$ 			& hdfs-site		& 1MB / 64MB 	\\
+$dfs.replication$ 			& hdfs-site		& 3	 	\\
+HADOOP\_HEAPSIZE            	 	& hadoop-env   		& 512MB 	\\
+%HADOOP\_OPTS                	 	& hadoop-env   		& $-XX:+UseParallelGC$ 	\\
+%                             	 	&              		& $-Djava.net.preferIPv4Stack=true$ 	\\
+%
+%(1,5,0)		& 0.0645	& 0.0689\tablenotemark[d]	& $2 \times 10^{-4}$		\\
+%
+\bottomrule
+\multicolumn{3}{c}{\rule{0.98\textwidth}{0em}}\\
+\rule{0.3\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \\
+\end{tabular}
+\end{center}
+%\vspace{-3.5em}
+%\tablenotetext[a] {Identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}}
+\end{table}
+
+
+%% TODO: Explain the values of the parameters used
+
+
+\subsection{Benchmark execution}
+\label{ssect-execution}
+
+In order to evaluate the suitability of FedCloud to perform Big Data analytics using Hadoop we selected two use cases which are quite representative of a broad range of jobs that could be performed in a Hadoop cluster. Both use cases were run both in the FedCloud federated infrastructure and in just a local site, allowing us to compare the results and analyse the expected degradation when using remotely distributed resources.
+
+% Enciclopaedia Britannica 1911: 176MB
+%% -put (5 runs)
+%%% Upload from hadoop-master
+%% wordcount (5 runs)
+
+% Wikipedia: 41GB
+%% -put (1 run)
+%%% Upload from UI (hadoop-master does not have enough space to store it)
+%% wordcount (5 runs)
+
+
+The first use case is based in the Enciclop{\ae}dia Britannica\cite{britannica} data set--the 1911 version that is already in the public domain. This represents a rather small data set of just 176MB, so this use case can be considered as a small scale benchmark that will serve to evaluate the expected degradation in performance due to fact that we will be using federated resources located at different sites. In this case, the data set is downloaded directly from the master node and distributed from there to the slaves, what is called a \emph{put} operation in Hadoop argon. This use case will have a great overload due to the creation of rather small mapreduce tasks that will stress the communication system--it uses a rather small block size of just 1MB, so each map operation has little to process.
+
+The second use case is based in the Wikipedia\cite{wikipedia} data set. This represents a much larger data set comprising 41GB, so it can be considered a more realistic benchmark of a Big Data job. Due to the size of the data set the files can not be downloaded directly in the master node so the \emph{put} operation is done directly from our local Hadoop client. This use case will have a lower overload due to the creation of mapreduce tasks because it uses a larger block size of 64MB, so each map task will take much longer than the time needed for its creation.
+
+
+The benchmarks are run for different cluster sizes that range from 10 to 101 for the Enciclop{\ae}dia Britannica's use case and from 51 to 101 for the Wikipedia's use case. In all the benchmarks we measure two parameters:
+\begin{enumerate}
+\item \emph{The put time:} the time to load the files into the Hadoop HDFS filesystem 
+\item \emph{The wordcount time:} the time to perform a simple wordcount mapreduce job that computes the number of occurrences of each word over the complete data set. 
+\end{enumerate}
+All the measurements where repeated at least 5 times in order to evaluate the variability of the results except the \emph{put} times for the Wikipedia that due to its size could only be run once.
+
+\section{Results}
+\label{sect-results}
+
+Following the methodology described in the previous Section we deployed Hadoop inside FedCloud and executed the benchmarks mentioned in Section \ref{ssect-execution}. In this Section we present the results obtained for the different benchmarks for each of the two selected use cases: Enciclop{\ae}dia Britannica and Wikipedia.
+
+The first results to consider are those related to the cluster startup step described in Section \ref{ssect-cluster}. In this case we are dealing with the instantiation of a number of VMs that ranges from 10 to 101 so it can also serve as a stress test of the FedCloud rOCCI framework as well as the underlying cloud management platform--currently only OpenNebula is supported by rOCCI.
+
+After some initial VM deployment tests we discovered that most of the sites involved in FedCloud were misconfigured or did not support rOCCI, only two sites were providing a working rOCCI endpoint: CESGA and CESNET. So we deployed our federated infrastructure using only these two sites.
+
+The startup times for each cluster deployment varied and the most significative are those obtained for the larger deployment, the 101 node cluster. The time for the rOCCI client to return all the resource endpoints corresponding to each VM ranged from 71 to 86 minutes. This is just the time to get the identifier corresponding to each VM instance, actually to have all the VMs running took even a bit longer, around 80 minutes more. So the total cluster startup time ranged from 2.5 to 3 hours. But this was not the main issue encountered, the main problem was that some of the rOCCI requests failed with an \emph{execution expired} error and some of the VMs did not start.
+%\begin{verbatim}
+%An error occurred! Message: execution expired
+%An error occurred! Message: HTTP Response status: [500] Internal Server Error!
+%\end{verbatim}
+We started to see this type of errors as soon as we deployed more than 20 VMs sequentially at CESGA. In CESNET we could not do this analysis because there were only 10 VMs available due to a restriction in the amount of public IPs that they had available.
+
+Trying to understand better the source of this issue we tracked the performance of the OpenNebula frontend during the cluster startup. As it can be seen in Figure \ref{fig:on} the frontend experiences a high load several minutes after the start of the cluster deployment, this causes it to respond slower and probably producing the rOCCI execution expiration errors mentioned above. This increase in the load is mainly due to the scp processes launched in the frontend to copy the image template to the OpenNebula nodes, more than 20 simultaneous scp processes seem to collapse the system reducing its response times considerably.
+
+% * Deploying 101 VMs:
+%{{{
+%[jlopez@test13 ~]$ time ./deploy_cluster_voms.sh &> deploy_cluster_voms.log
+%
+%real	71m31.677s
+%user	1m43.104s
+%sys	0m25.706s
+%
+%[jlopez@test13 ~]$ wc -l machines/pending
+%98 machines/pending
+%
+%}}}
+%
+
+% Screenshot ganglia: 100 VMs deployment
+\begin{figure}[t!]
+\centering
+%\includegraphics[width=0.74\textwidth]{figures/ON_load-complete.png}
+\includegraphics[width=0.6\textwidth]{figures/ON_load-complete.png}
+\includegraphics[width=0.6\textwidth]{figures/ON_network-complete.png}
+\caption{OpenNebula frontend load and network usage graphs taken from Ganglia during the deployment of the 101 nodes cluster.}
+\label{fig:on}
+\end{figure}
+
+
+Another problem related to the federated cluster startup is that FedCloud does not count with a workload management system, so each VM creation request must be sent to the appropriate endpoint. This means that we have to take care in advance of the partitioning of the cluster between the different FedCloud sites. In our case we choose to run 10 VM at CESNET--the maximum possible at the time of the benchmarks--and the rest of them at CESGA--ranging from 10 to 91.
+
+Once the cluster is deployed we can proceed to configure Hadoop, in this case the only problem encountered was due to the global firewall rules at each site that blocked Hadoop communications. Once this issue was addressed the Hadoop cluster started without problems. The time involved to configure and start the Hadoop cluster was really short, taking less than 1 minute in the larger setup with 101 nodes, so it is almost irrelevant in the total cluster startup time.
+
+%Finally we proceeded with the execution of the specific Big Data use cases described in Section \ref{ssect-execution}.
+
+% Results Enc. Britannica
+In Table \ref{table:britannica} we show the results obtained for the Enciclop{\ae}dia Britannica use case. All measurements are repeated 5 times and the average and standard deviation are displayed, so we can have an estimation of the variability involved in the measurement. As it can be seen even if the block size used in this case is very small (1MB), the wordcount map reduce job scales really well and the overhead introduced by the delay in the communications in the federated cluster is small, being in general in order of 10\%, and 28\% in the worst case that corresponds to the 101 cluster. This is mainly due to the large overhead that mapreduce task creation and distribution imposes in this use case, especially in the larger cluster sizes that involve more reduce tasks--remember from Section \ref{ssect-hadoop} that we are using a number of reduce tasks equal to the 95\% of the total number of slaves.
+
+As expected the put times are much lower in the cluster deployment running just in one site because in this case the connection between the VMs is much faster, usually with most of the nodes connected to the same switch.
+
+%% Table results Enc. Britannica
+\begin{table}[h!]
+\caption{Benchmark times obtained for the Enciclop{\ae}dia Britannica use case. Both the average time and standard deviation are reported. Federated times where measured in a federated cluster that included resources both from CESGA and CESNET; all local times where obtained in a one site only deployment at CESGA except the 10 node cluster indicated in the second row. }
+\label{table:britannica}
+%
+\vspace{-0.5em}
+%
+\begin{center}
+\begin{tabular}{ccccc}
+\toprule
+%Parameter				& Type\tablenotemark[a] & Value	 	\\
+%Cluster size				& put (s) Local		& put (s)		& wordcount (s) 	& wordcount (s) 	\\
+Cluster size				& \multicolumn{2}{c}{Federated} 		& \multicolumn{2}{c}{Local} \\
+Cluster size				& put (s)		& wordcount (s) 	& put (s)		& wordcount (s)\\
+\midrule
+10 (CESGA)             			&        		&               	& $47\pm2$		& $169\pm1$\\
+10 (CESNET)          			& 			&  			& $9.5\pm0.2$		& $160\pm1$\\
+21                   			& $235\pm12$		& $108\pm2$     	& $37\pm1$		& $97\pm1$\\
+31                   			& $189\pm4$		& $90\pm2$      	& $36\pm2$		& $78\pm2$\\
+41                   			& $190\pm11$		& $81\pm4$      	& $33\pm2$		& $71\pm3$\\
+51                   			& $133\pm7$		& $73\pm3$      	& $33\pm1$		& $66\pm2$\\
+101                  			& $94\pm7$		& $67\pm22$      	& $33\pm4$		& $52\pm5$\\
+%
+\bottomrule
+\multicolumn{5}{c}{\rule{0.98\textwidth}{0em}}\\
+\rule{0.3\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \rule{0.2\textwidth}{0cm} & \\
+\end{tabular}
+\end{center}
+%\vspace{-3.5em}
+%\tablenotetext[a] {Identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}}
+\end{table}
+
+
+
+% Results Wikipedia
+In Table \ref{table:wikipedia} we show the results obtained for the Wikipedia use case. In this case, due to the high duration of the transfers, we did not repeat the put measurements 5 times, and only the wordcount measurements were repeated. Also due to the longer duration of the benchmarks we only used the two larger cluster sizes: 51 and 101.
+
+In this case the wordcount mapreduce results are quite surprising because the federated cluster instance is able to outperform the one site only instance in both scenarios. This is attributed mainly to the faster execution of the benchmark in CESNET nodes compared to CESGA nodes--CESNET VMs use Xen paravirtualization and a faster CPU whereas CESGA VMs use KVM and QEMU. In this case the relative overhead due to mapreduce task creation is much lower than in the previous use case because we are using a much larger block size of 64MB.
+
+The put times are much larger in the federated cluster due to the fact that the amount of data to transfer in this case is much larger--HDFS stores three copies of the Wikipedia, 42GB each. In this case the available bandwidth between the VMs and the UI plays a key role, and this is much lower in the case of CESNET nodes that access the UI and the rest of the cluster using internet.
+
+%% Table results Wikipedia
+\begin{table}[h!]
+\caption{Benchmark times obtained for the Wikipedia use case. Both the average time and standard deviation are reported except for the put times that where only measured once for each deployment. Federated times where measured in a federated cluster that included resources both from CESGA and CESNET; all local times where obtained in a one site only deployment at CESGA. }
+\label{table:wikipedia}
+%
+\vspace{-0.5em}
+%
+\begin{center}
+\begin{tabular}{ccccc}
+\toprule
+%Parameter				& Type\tablenotemark[a] & Value	 	\\
+%Cluster size				& put (s) Local		& put (s)		& wordcount (s) 	& wordcount (s) 	\\
+Cluster size				& \multicolumn{2}{c}{Federated} 		& \multicolumn{2}{c}{Local} \\
+Cluster size				& put (s)		& wordcount (s) 	& put (s)		& wordcount (s)\\
+\midrule
+51                   			& $19190$		& $1001\pm39$      	& $6705$		& $1347\pm117$\\
+101                  			& $13208$		& $705\pm14$      	& $5665$		& $725\pm18$\\
+%
+\bottomrule
+\multicolumn{5}{c}{\rule{0.98\textwidth}{0em}}\\
+\rule{0.3\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \rule{0.2\textwidth}{0cm} & \\
+\end{tabular}
+\end{center}
+%\vspace{-3.5em}
+%\tablenotetext[a] {Identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}}
+\end{table}
+
+
+
+\section{Conclusions and future work}
 \label{sect-conclusions}
-The management of virtual machine images is a critical task within a federated cloud architecture. It involves certain safety standards and special scalability and availability and stability patterns.
-Taking these requirements into account Fedcloud taks force have chosen VMcaster and VMcatcher utilities to distribute and validate VM images between the resource providers.
-Fedcloud resource providers are using a heterogenous cloud frameworks ecosystem (OpenStack, OpenNebula, WNoDES~\cite{wnodes}, etc). This kind of federated infrastructure requires agnostic tools.
-Fortunately as we have explained in this paper, VMcatcher can be used by any cloud framework to distribute and update images in a transparent way. 
-The new image management tools are being used by EGI Fedcloud providers since last year successfully and probably it will be used in more use cases in the near future.
+The results presented in this paper show the suitability of a federated cloud infrastructure like FedCloud to run Big Data analytics, especially if the data set is already pre-deployed in the Hadoop HDFS filesystem. In some cases we see that the federated cluster is even able to outperform the local one if the remote nodes are faster than the ones available locally.
 
-A new use cases is the EGI SA2.3 verification image repository. The EGI SA2 testbed is used to verify and test the new middleware before reaching the production software repository (UMD).
-One of the most important new features is the ability to distribute and publish VM images in an automated way. 
-These new tools, like EGI MarketPlace\footnote{EGI MarketPlace: \url{http://marketplace.egi.eu}} and VMcatcher\footnote{VMcatcher: \url{https://github.com/hepix-virtualisation/vmcatcher}} can be also used within SA2 verification process to distribute and publish new UMD services after its verification. 
-This work is still on going and it will be available in the next months. Using this infrastructure the new EGI certified image it will be available to be used and tested by EGI site administrators after each successful verification.
-For the moment after each software verification the images are stored locally into CESGA OpenNebula datastore but thanks to image management tools like VMcaster the new images will be published in an automated way.
-This new paradigm will be useful to users that want to check the latest software changes without the need to install a new service from scratch.
+% Step 2: hadoop configuration
+We have shown that small VM instances are good enough to run Hadoop if you do an appropriate tuning of the configuration, of course using larger instances could improve the performance. In our benchmark the \emph{tasktrackers} run out of memory when running the Wikipedia's use case if we used a small number of reduce tasks, additionally when using a small \emph{dfs.block.size} it was the \emph{jobtracker} the service that run out of memory because it was not able to cope with the large amount of tasks.
+
+% Step 1: cluster setup
+%% Scalability: Issues when starting more than 20 VMs, some fail
+The benchmarks performed allowed also to test the FedCloud infrastructure and the new rOCCI server service. There were some disappointing results about cluster startup times, and we found that when starting more than 20 VMs we start to get timeout errors in the rOCCI client. Even if we found that these errors could be attributed mainly due to the local cloud management backend limitations, improvements in this area are needed to have a really scalable federated infrastructure.
+
+%% Marketplace: the image is not automatically sync to all sites
+There are some other aspects of the FedCloud infrastructure that we think should be also improved like the fact that, at this moment, in the EGI Marketplace there is no automated way to perform this step so the distribution of the VM template to all the sites is a time consuming effort that involves personal contact with the administrators of each site.
+
+%% Multi-site: Lack of automatic scheduling
+%% Only two sites had working rOCCI API druing the period of the benchmarks
+There is also a lack of a workload management system that takes care of automatically distributing the VMs to the available sites. This forces the user to manually partition his cluster between the available sites. In this sense a more strict testing of the sites would also help because at the time of running the benchmarks only two sites had operational rOCCI interface at the time of running the benchmarks.
+
+%% Unable to know how many VMs we can run in a given site through occi, we can just check if they are machines pending. You have to ask the administrator of the site. It can be that there are no computing resources or that they do not have enough public IPs.
+%% Limitations in the concurrent number of VMs available due to the number of available public IPs that a given site has
+There is even the lack of a way to query the resources available to run our VM instances at a given site, so the only way to know how many VMs you are allowed to run in a given site is to guess that querying the status and see if there are pending instances. Sometimes the problem is not due to a lack of computing resources but of public IPs, in this sense the development of a private IP addressing solution could help.
+
+%% firewall between sites closing hadoop port access
+Another aspect to improve is related to network access between the nodes, the global firewalls of the sites can impede certain communications and then hinder the deployment the Hadoop service.
+
+
+% Future work
+
+About the future work, there is the possibility to setup a service on top of FedCloud to offer Hadoop on-demand with a web frontend where the user could select some basic cluster parameters. This would allow other users to easily run Hadoop jobs in FedCloud.
+
+% Include the master image in the marketplace of EGI (reference the other paper)
+ 
+The set of scripts created to ease the process of deploying and running the Hadoop service, as well as the ones used to run the benchmarks, have been uploaded to github  \url{https://github.com/grid-admin/hadoop} so they can be used as a starting point to create a on-demand hadoop services and they can be also useful to other users interested in running Hadoop in FedCloud.
 
 
 \section*{Acknowledgements}
