@@ -62,8 +62,8 @@ Second Author (Institution of second author's affiliation)}
 \institute{Fundaci\'on Centro de Supercomputaci\'on de Galicia, Spain\\
 	\email{grid-admin@cesga.es}
 	\and
-	CESNET, CZech Republic\\
-	\email{256254@mail.muni.cz}
+	CESNET, Czech Republic\\
+	\email{boris.parak@cesnet.cz}
 }
 
 
@@ -153,7 +153,7 @@ Unfortunately FedCloud does not count with a workload management system, so each
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.74\textwidth]{figures/client-v2.png}
+\includegraphics[width=\textwidth]{figures/client-v2.png}
 \caption{Cluster startup process using rOCCI and VOMS from a single UI.}
 \label{fig:client}
 \end{figure}
@@ -179,7 +179,7 @@ due to the fact that we are using small VM instances with just 1GB of RAM and 1 
 
 These parameters have been configured to adapt the Hadoop cluster to resources available--1GB of RAM and 1 CPU per node--. The $dfs.replication$ parameter indicates how many copies we want to store of each block, in this case we use three replicas that will allow different nodes to execute the same mapreduce tasks--speculative execution--mitigating the performance degradation that could be experienced in a heterogeneous cluster with VMs running under hypervisors with different load conditions. The $mapred.tasktracker.map.tasks.maximum$ and $reduce.tasks.maximum$ are set to 1 because we only have 1 CPU available to run both services and the HADOOP\_HEAPSIZE is set to 512MB to allow both running at the same time without exhausting the node's memory. The number of reduce tasks, $mapred.reduce.tasks$, is set to 95\% of the number of slaves in the Hadoop cluster. 
 
-As we will see in Section \ref{ssect-execution} our Hadoop installation will cope with two very different use cases that influence our decission about the $dfs.block.size$ values to use. In the case of the Enciclop{\ae}dia Britannica's use case the block size is set to 1MB and in the Wikipedia's use case, that uses a much larger data set, to 64MB. Under this conditions both use cases generate less than 700 total mapreduce tasks which can be handled well by our hadoop master node which has only 1GB of RAM and 1 CPU.
+As we will see in Section \ref{ssect-execution} our Hadoop installation will cope with two very different use cases that influence our decission about the $dfs.block.size$ values to use. In the case of the Encyclop{\ae}dia Britannica's use case the block size is set to 1MB and in the Wikipedia's use case, that uses a much larger data set, to 64MB. Under this conditions both use cases generate less than 700 total mapreduce tasks which can be handled well by our hadoop master node which has only 1GB of RAM and 1 CPU.
 
 
 %% table with the parameters used
@@ -214,7 +214,7 @@ HADOOP\_HEAPSIZE            	 	& hadoop-env   		& 512MB 	\\
 %
 \bottomrule
 \multicolumn{3}{c}{\rule{0.98\textwidth}{0em}}\\
-\rule{0.3\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \\
+%\rule{0.3\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \\
 \end{tabular}
 \end{center}
 %\vspace{-3.5em}
@@ -230,7 +230,7 @@ HADOOP\_HEAPSIZE            	 	& hadoop-env   		& 512MB 	\\
 
 In order to evaluate the suitability of FedCloud to perform Big Data analytics using Hadoop we selected two use cases which are quite representative of a broad range of jobs that could be performed in a Hadoop cluster. The benchmarks were run both in a federated cluster deployment and in a one-site-only cluster deployment, allowing us to compare the results and analyse the expected degradation when using remotely distributed resources.
 
-% Enciclopaedia Britannica 1911: 176MB
+% Encyclopaedia Britannica 1911: 176MB
 %% -put (5 runs)
 %%% Upload from hadoop-master
 %% wordcount (5 runs)
@@ -241,7 +241,7 @@ In order to evaluate the suitability of FedCloud to perform Big Data analytics u
 %% wordcount (5 runs)
 
 
-The first use case is based in the Enciclop{\ae}dia Britannica\cite{britannica} data set--the 1911 version that is already in the public domain--. This represents a rather small data set of just 176MB, so that this use case can be considered as a small scale benchmark that will serve to evaluate the expected degradation in performance due to fact that we will be using federated resources located at different sites. The data set is downloaded directly from the master node and later on it is distributed from there to the slaves, what is called a \emph{put} operation in Hadoop argon. This use case has a great overload due to the creation of rather small mapreduce tasks that will stress the communication system because it uses a rather small block size of just 1MB, so each map operation has little to process.
+The first use case is based in the Encyclop{\ae}dia Britannica\cite{britannica} data set--the 1911 version that is already in the public domain--. This represents a rather small data set of just 176MB, so that this use case can be considered as a small scale benchmark that will serve to evaluate the expected degradation in performance due to fact that we will be using federated resources located at different sites. The data set is downloaded directly from the master node and later on it is distributed from there to the slaves, what is called a \emph{put} operation in Hadoop argon. This use case has a great overload due to the creation of rather small mapreduce tasks that will stress the communication system because it uses a rather small block size of just 1MB, so each map operation has little to process.
 
 The second use case is based in the Wikipedia\cite{wikipedia} data set. This represents a much larger data set comprising 41GB, so it can be considered a more realistic benchmark of a Big Data application. Due to the size of the data set the files could not be downloaded directly in the master node so the \emph{put} operation is done directly from our local Hadoop client located at CESGA. This use case will incur in a lower task creation penalization because it uses a larger block size of 64MB, so each map task will take much longer than the time needed for its creation.
 
@@ -256,7 +256,7 @@ All the measurements where repeated at least 5 times in order to evaluate the va
 \section{Results}
 \label{sect-results}
 
-Following the methodology described in the previous Section we deployed Hadoop inside FedCloud and executed the benchmarks mentioned in subsection \ref{ssect-execution}. In this Section we present the benchmark results obtained for the two selected use cases: Enciclop{\ae}dia Britannica and Wikipedia.
+Following the methodology described in the previous Section we deployed Hadoop inside FedCloud and executed the benchmarks mentioned in subsection \ref{ssect-execution}. In this Section we present the benchmark results obtained for the two selected use cases: Encyclop{\ae}dia Britannica and Wikipedia.
 
 The first results to consider are those related to the cluster startup process described in Section \ref{ssect-cluster}. In this case we are dealing with the instantiation of a number of VMs that ranges from 10 to 101 so it can also serve as a stress test of the FedCloud rOCCI framework as well as the underlying cloud management platform--currently only OpenNebula is supported by rOCCI.
 
@@ -304,13 +304,13 @@ Once the cluster is deployed we proceed to configure Hadoop. In this case the on
 %Finally we proceeded with the execution of the specific Big Data use cases described in Section \ref{ssect-execution}.
 
 % Results Enc. Britannica
-In Table \ref{table:britannica} we show the results obtained for the Enciclop{\ae}dia Britannica use case. All measurements are repeated 5 times and the average and standard deviation are displayed, allowing to have an estimation of the variability involved in the measurement. As it can be seen even if the block size used in this case is very small (1MB), the wordcount map reduce job scales really well and the overhead introduced by the federated cluster is small, being in general in order of 10-15\%, and 28\% in the worst case that corresponds to the 101 cluster. This is mainly due to the large overhead that mapreduce task creation and distribution imposes in this use case, especially in the larger cluster sizes that involve more reduce tasks--we are using a number of reduce tasks equal to the 95\% of the total number of slaves.
+In Table \ref{table:britannica} we show the results obtained for the Encyclop{\ae}dia Britannica use case. All measurements are repeated 5 times and the average and standard deviation are displayed, allowing to have an estimation of the variability involved in the measurement. As it can be seen even if the block size used in this case is very small (1MB), the wordcount map reduce job scales really well and the overhead introduced by the federated cluster is small, being in general in order of 10-15\%, and 28\% in the worst case that corresponds to the 101 cluster. This is mainly due to the large overhead that mapreduce task creation and distribution imposes in this use case, especially in the larger cluster sizes that involve more reduce tasks--we are using a number of reduce tasks equal to the 95\% of the total number of slaves.
 
 As expected the put times are much lower in one-site-only scenario because in this case the connection between all the VMs is much faster because all of them are generally located in the same data centre.
 
 %% Table results Enc. Britannica
 \begin{table}[h!]
-\caption{Benchmark times obtained for the Enciclop{\ae}dia Britannica use case. Both the average time and standard deviation are reported. Federated times where measured in a federated cluster that included resources both from CESGA and CESNET; all one-site-only times where obtained in a one site deployment at CESGA except the 10 node cluster indicated in the second row that run at CESNET. }
+\caption{Benchmark times obtained for the Encyclop{\ae}dia Britannica use case. Both the average time and standard deviation are reported. Federated times where measured in a federated cluster that included resources both from CESGA and CESNET; all one-site-only times where obtained in a one site deployment at CESGA except the 10 node cluster indicated in the second row that run at CESNET. }
 \label{table:britannica}
 %
 \vspace{-0.5em}
@@ -333,7 +333,7 @@ Cluster size				& put (s)		& wordcount (s) 	& put (s)		& wordcount (s)\\
 %
 \bottomrule
 \multicolumn{5}{c}{\rule{0.98\textwidth}{0em}}\\
-\rule{0.3\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \rule{0.2\textwidth}{0cm} & \\
+\rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \rule{0.2\textwidth}{0cm} & \\
 \end{tabular}
 \end{center}
 %\vspace{-3.5em}
@@ -369,7 +369,7 @@ Cluster size				& put (s)		& wordcount (s) 	& put (s)		& wordcount (s)\\
 %
 \bottomrule
 \multicolumn{5}{c}{\rule{0.98\textwidth}{0em}}\\
-\rule{0.3\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \rule{0.2\textwidth}{0cm} & \\
+\rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \rule{0.2\textwidth}{0cm} & \\
 \end{tabular}
 \end{center}
 %\vspace{-3.5em}
