@@ -376,6 +376,129 @@ Cluster size				& put (s)		& wordcount (s) 	& put (s)		& wordcount (s)\\
 %\tablenotetext[a] {Identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}}
 \end{table}
 
+%% Table results teragen/terasort
+\begin{table}[h!]
+\caption{Results obtained for the Teragen and Terasort benchmarks: times where measured in a federated cluster that included 20 slave nodes running at CESGA and 20 at CESNET with the master node at CESGA. We used 100 mappers to generate the dataset and only 1 replica. }
+\label{table:teragen}
+%
+\vspace{-0.5em}
+%
+\begin{center}
+\begin{tabular}{ccccc}
+\toprule
+    					& \multicolumn{2}{c}{Federated} 	  \\
+Dataset size				& teragen (s)		& terasort (s) 	  \\
+\midrule
+100GB                			& $19190$		& $--$     \\
+500GB                			& $--$	 		& $--$      \\
+1000GB                			& $--$			& $--$      \\
+%
+\bottomrule
+\multicolumn{5}{c}{\rule{0.98\textwidth}{0em}}\\
+\rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \rule{0.2\textwidth}{0cm} & \\
+\end{tabular}
+\end{center}
+%\vspace{-3.5em}
+%\tablenotetext[a] {Identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}}
+\end{table}
+
+
+\subsection{Cluster Startup: Comparison with Amazon EC2}
+\label{sect-startup}
+TODO: Describe how we optimized OpenNebula (move relevant content from previous section here)
+
+The optimized startup times can be found in Table \ref{table:startupON}.
+
+With the aim of comparing the Hadoop cluster startup times with other commercial clouds we performed similar benchmarks in Amazon EC2. (TODO: Add general information about Amazon EC2). Notice should be given to the fact that to launch more than 20 instances in Amazon EC2 you have to fill a form indicating the number of instances you need and their expected usage. The acceptance requires manual validation on the Amazon's side.
+
+There are different tools available to create clusters in Amazon EC2 and whirr (TODO: add reference) is one of the most popular. It is a Apache project mentored by Doug Cutting--the creator of Hadoop--and it is based on the jclouds framework so it can support different cloud providers.
+
+Unfortunately it does not scale well due to the large number of REST requests it sends to the Amazon API that causes Amazon to temporarily block the client with a ``Request limit exceeded'' error. The largest cluster we were able to launch in the eu-west-1 region was 21 nodes (see Table \ref{table:whirr}).
+
+To avoid this issue we developed a custom tool to create and configure the Hadoop cluster that used Amazon EC2 \emph{instance-count} functionalityto request all the instances in the same REST request avoiding the ``Request limit exceeded'' problem. The results are shown in Table \ref{table:ec2}, as it can be seen the startup times are all below 5 minutes. But it should be taken into account that both the 51 and 101 cluster startups had all nodes that could not be reached for different reasons. In some cases the instance launch directly failed but in most cases the failing instances are just running correctly but they are not reachable from the other nodes in the cluster due to a security group internal network issue at Amazon.
+
+%% Table results startup OpenNebula
+\begin{table}[h!]
+\caption{Optimized startup times at CESGA after tuning OpenNebula configuration.}
+\label{table:startupON}
+%
+\vspace{-0.5em}
+%
+\begin{center}
+\begin{tabular}{ccl}
+\toprule
+Cluster size			& Startup time (s)	& Comments	  \\
+\midrule
+10                		& 249   		&	 \\
+21                   		& 269			&        \\
+51                   		& 822 			&        \\
+101                  		& 1096			&        \\
+%
+\bottomrule
+\multicolumn{3}{c}{\rule{0.98\textwidth}{0em}}\\
+\rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \rule{0.2\textwidth}{0cm} & \\
+\end{tabular}
+\end{center}
+%\vspace{-3.5em}
+%\tablenotetext[a] {Identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}}
+\end{table}
+
+
+
+%% Table results Amazon EC2
+\begin{table}[h!]
+\caption{Amazon EC2 startup times using whirr: the AMI and instance type used are also specified.}
+\label{table:whirr}
+%
+\vspace{-0.5em}
+%
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+Cluster size				& AMI				& Instance type		& Startup time (s) 	  \\
+\midrule
+10                   			& eu-west-1/ami-c37474b7 EBS	& t1.micro 		& 555   		  \\
+10                   			& eu-west-1/ami-c37474b7 EBS	& m1.small		& 891			  \\
+21                   			& eu-west-1/ami-c37474b7 EBS	& m1.small 		& 1670			  \\
+31                   			& eu-west-1/ami-c37474b7 EBS	& m1.small 		& Fails  		  \\
+%
+\bottomrule
+\multicolumn{4}{c}{\rule{0.98\textwidth}{0em}}\\
+\rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \rule{0.2\textwidth}{0cm} & \\
+\end{tabular}
+\end{center}
+%\vspace{-3.5em}
+%\tablenotetext[a] {Identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}}
+\end{table}
+
+%% Table results Amazon EC2
+\begin{table}[h!]
+\caption{Amazon EC2 startup times using our custom tool (available at github): the AMI used was eu-west-1/ami-54d43023 EBS plus instance store. The instance type used was m1.small in all cases.}
+\label{table:ec2}
+%
+\vspace{-0.5em}
+%
+\begin{center}
+\begin{tabular}{ccl}
+\toprule
+Cluster size			& Startup time (s)	& Comments	  \\
+\midrule
+10                		& 191   		&	 \\
+21                   		& 178			&        \\
+51                   		& 583*			& 2 nodes not working       \\
+101                  		& 276*			& 16 nodes not working       \\
+101                  		& 297*			& 1 node not working       \\
+%
+\bottomrule
+\multicolumn{3}{c}{\rule{0.98\textwidth}{0em}}\\
+\rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \rule{0.2\textwidth}{0cm} & \\
+\end{tabular}
+\end{center}
+%\vspace{-3.5em}
+%\tablenotetext[a] {Identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}}
+\end{table}
+
+
 
 
 \section{Conclusions and future work}
