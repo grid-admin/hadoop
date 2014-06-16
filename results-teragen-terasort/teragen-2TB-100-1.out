@@ -1,0 +1,39 @@
+[hadoop@hadoop-master ~]$ time hadoop jar /opt/cesga/hadoop/hadoop-examples-1.2.1.jar teragen -D mapred.map.tasks=100 $((2000*1000*1000*10))  /user/hadoop/terasort-input-2000 | tee teragen-cesga-cesnet-2000-100.log 2>&1
+
+
+14/06/11 16:59:58 INFO mapred.JobClient:  map 96% reduce 0%
+14/06/11 17:01:26 INFO mapred.JobClient:  map 97% reduce 0%
+14/06/11 17:02:49 INFO mapred.JobClient:  map 98% reduce 0%
+14/06/11 17:04:51 INFO mapred.JobClient:  map 99% reduce 0%
+14/06/11 17:32:52 INFO mapred.JobClient:  map 100% reduce 0%
+14/06/11 17:32:56 INFO mapred.JobClient: Job complete: job_201406111226_0007
+14/06/11 17:32:56 INFO mapred.JobClient: Counters: 19
+14/06/11 17:32:56 INFO mapred.JobClient:   Job Counters
+14/06/11 17:32:56 INFO mapred.JobClient:     SLOTS_MILLIS_MAPS=115726805
+14/06/11 17:32:56 INFO mapred.JobClient:     Total time spent by all reduces waiting after reserving slots (ms)=0
+14/06/11 17:32:56 INFO mapred.JobClient:     Total time spent by all maps waiting after reserving slots (ms)=0
+14/06/11 17:32:56 INFO mapred.JobClient:     Launched map tasks=156
+14/06/11 17:32:56 INFO mapred.JobClient:     SLOTS_MILLIS_REDUCES=0
+14/06/11 17:32:56 INFO mapred.JobClient:   File Input Format Counters
+14/06/11 17:32:56 INFO mapred.JobClient:     Bytes Read=0
+14/06/11 17:32:56 INFO mapred.JobClient:   File Output Format Counters
+14/06/11 17:32:56 INFO mapred.JobClient:     Bytes Written=2000000000000
+14/06/11 17:32:56 INFO mapred.JobClient:   FileSystemCounters
+14/06/11 17:32:56 INFO mapred.JobClient:     HDFS_BYTES_READ=8774
+14/06/11 17:32:56 INFO mapred.JobClient:     FILE_BYTES_WRITTEN=5544590
+14/06/11 17:32:56 INFO mapred.JobClient:     HDFS_BYTES_WRITTEN=2000000000000
+14/06/11 17:32:56 INFO mapred.JobClient:   Map-Reduce Framework
+14/06/11 17:32:56 INFO mapred.JobClient:     Map input records=20000000000
+14/06/11 17:32:56 INFO mapred.JobClient:     Physical memory (bytes) snapshot=8164626432
+14/06/11 17:32:56 INFO mapred.JobClient:     Spilled Records=0
+14/06/11 17:32:56 INFO mapred.JobClient:     CPU time spent (ms)=20345750
+14/06/11 17:32:56 INFO mapred.JobClient:     Total committed heap usage (bytes)=2333732864
+14/06/11 17:32:56 INFO mapred.JobClient:     Virtual memory (bytes) snapshot=72684257280
+14/06/11 17:32:56 INFO mapred.JobClient:     Map input bytes=20000000000
+14/06/11 17:32:56 INFO mapred.JobClient:     Map output records=20000000000
+14/06/11 17:32:56 INFO mapred.JobClient:     SPLIT_RAW_BYTES=8774
+
+real    88m24.726s
+user    0m10.250s
+sys     0m2.259s
+

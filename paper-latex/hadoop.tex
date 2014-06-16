@@ -389,9 +389,14 @@ Cluster size				& put (s)		& wordcount (s) 	& put (s)		& wordcount (s)\\
     					& \multicolumn{2}{c}{Federated} 	  \\
 Dataset size				& teragen (s)		& terasort (s) 	  \\
 \midrule
+10GB                			& $54$  		& $186$     \\
+10GB                			& $37$  		& $257$     \\ # only 20 mappers instead of 100, but using also 1 replica
+20GB                			& $49$  		& $325$     \\
+50GB                			& $$  		& $$     \\
 100GB                			& $19190$		& $--$     \\
 500GB                			& $--$	 		& $--$      \\
 1000GB                			& $--$			& $--$      \\
+2000GB                			& $4854$		& $--$      \\
 %
 \bottomrule
 \multicolumn{5}{c}{\rule{0.98\textwidth}{0em}}\\
