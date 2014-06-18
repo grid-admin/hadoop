@@ -1,0 +1,28 @@
+The results presented in this paper show the suitability of a federated cloud infrastructure like FedCloud to run Big Data analytics, especially if the data set is already pre-deployed in the Hadoop HDFS filesystem. In some cases we see that the federated cluster is even able to outperform the local one if the remote nodes are faster than the ones available locally.
+
+% Step 2: hadoop configuration
+We have shown that small VM instances are good enough to run Hadoop assuming you do an appropriate tuning of the configuration, of course using larger instances would simplify the configuration and it could improve the performance. In our benchmarks the \emph{tasktrackers} run out of memory when running the Wikipedia's use case if we used a small number of reduce tasks, additionally when using a small \emph{dfs.block.size} it was the \emph{jobtracker} the service that run out of memory because it was not able to cope with the large amount of tasks.
+
+% Step 1: cluster setup
+%% Scalability: Issues when starting more than 20 VMs, some fail
+The benchmarks performed allowed also to test the FedCloud infrastructure and the new rOCCI framework. There were some disappointing results about cluster startup times that were in the order of 3 hours for the 101 node cluster, additionally failures started to appear when trying to start more than 20 VMs. Even if we found that these failures should be mainly attributed to limitations in the RP cloud management backend, improvements in this area would be needed to create a really scalable federated infrastructure.
+
+%% Marketplace: the image is not automatically sync to all sites
+There are some other aspects of the FedCloud infrastructure that cloud be improved like the fact that there is no automated way in the EGI Marketplace to distribute of the image template to all the sites.
+%% Multi-site: Lack of automatic scheduling
+%% Only two sites had working rOCCI API druing the period of the benchmarks
+There is also a lack of a workload management system to automatically distribute the VM instances between the available sites. A more strict testing of the sites would also help because at the time of running the benchmarks only two sites had operational rOCCI interfaces.
+%% Unable to know how many VMs we can run in a given site through occi, we can just check if they are machines pending. You have to ask the administrator of the site. It can be that there are no computing resources or that they do not have enough public IPs.
+%% Limitations in the concurrent number of VMs available due to the number of available public IPs that a given site has
+A mechanism to query the resources available at a given site would be also useful.
+%% firewall between sites closing hadoop port access
+Another aspect to improve is related to network access between the nodes, the global firewalls of the sites can impede certain communications and then hinder the deployment of the Hadoop service.
+
+
+% Future work
+About the future work, we will analyse the possibility of setting up a Hadoop service on top of FedCloud in order to offer Hadoop clusters on-demand through a simple web frontend where the user could select some basic parameters. This would allow other users to easily run their Hadoop applications in FedCloud.
+
+% Include the master image in the marketplace of EGI (reference the other paper)
+The set of scripts created to deploy and execute the Hadoop service have been uploaded to github\cite{scripts} so they can be used by other users interested in running Hadoop in FedCloud.
+
+

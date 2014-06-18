@@ -1,0 +1,37 @@
+% Big Data 
+% Hadoop 
+% Cloud 
+% Federated cloud
+% FedCloud
+
+% Big Data on federated Cloud
+% Amazon Hadoop service
+% BC-PDM: Because of the limitations of the current system, China Mobile initiated an experimental project to develop a parallel data mining tool set on Hadoop and evaluated it against its current system. They named the project Big Cloud–based Parallel Data Mining (BC-PDM) [Hadoop in Action Book page 269]
+
+% Short summary and main objective of the work
+Nowadays, the possibility to run Big Data calculations over federated clouds is a topic that is attracting the interest of the research community. Federation of resources poses serious challenges both from the cloud and Big Data perspectives. The aim of this paper is to evaluate the suitability of the EGI FedCloud federated cloud infrastructure to run Big Data analytics using Hadoop. 
+
+% FedCloud
+The EGI Federated Cloud Task Force~\cite{fedcloudtaskforce} started its activity in September 2011 with the aim of creating a federated cloud testbed--named FedCloud--to evaluate the utilization of virtualized resources inside the EGI production infrastructure. 
+FedCloud is in production since mid May 2014 as presented at the EGI Community Forum 2014~\cite{fedcloud}, and during the last year it has been already available for experimentation by the different user communities. A more detailed description of the EGI FedCloud infrastructure is given in~\cite{fedcloudpaper}.
+
+%
+% Big Data and Hadoop
+
+%Big Data is one of the buzzwords that sounds everywhere, the Big Data community is working to extend the scalability of traditional databases (RDMS) using new technologies based on a share-nothing architecture. In this arena, one of the most well-known solutions is Hadoop~\cite{hadoop}, an open-source framework that implements the MapReduce computational paradigm on top of a parallel HDFS filesystem.
+Big Data is an emerging field that can benefit from existing developments in cloud technologies. One of the  most well-know solutions in this arena is Apache Hadoop~\cite{hadoop}, an open-source framework that implements the MapReduce programming model~\cite{mapreduce}. It provides both a distributed filesystem (HDFS), a framework for job scheduling, and a MapReduce implementation for parallel processing of large data sets. In the MapReduce programming model users simply specify two functions: a \emph{map} function and a \emph{reduce} function. The \emph{map} function processes a set of key/value pairs--usually the lines of a text or sequence file--and generates a new set of intermediate key/value pairs which are later on passed--partitioned and sorted--to the \emph{reduce} function provided by the user merging all intermediate values associated with the same key.
+
+%
+% Hadoop + Cloud
+
+% Previous attempts to run Hadoop on the Cloud
+% TODO: Include references
+
+% Amazon EC2
+
+
+% Aim & structure 
+The aim of our work is to do an initial assessment of the suitability of FedCloud to run Hadoop through a series of real-world benchmarks. The paper is organized as follows: in Section~\ref{sect-methodology} we describe the methodology used to deploy Hadoop inside the FedCloud federated cloud infrastructure; in Section~\ref{sect-results} we show the results obtained after running several deployment and execution benchmarks based on the analysis of two common data sets: Encyclop{\ae}dia Britannica and Wikipedia, as well as using the TeraGen and TeraSort benchmarks including a comparison with Amazon EC2; finally in Section~\ref{sect-conclusions} we present the main conclusions of this work, summarizing the main problems encountered as well as outlining the future steps that could be taken to provide Hadoop as a on-demand service in FedCloud.
+
+
+
