@@ -12,21 +12,20 @@ A general overview of the overall cluster startup process is given in Figure~\re
 % VM template & Marketplace
 A customized virtual machine (VM) image template that includes all the software necessary was created. This image is based on Scientific Linux 6.4 and contains the following customizations:
 \begin{itemize}
-\item \emph{Firewall:} iptables is configured to allow only inter-cluster communication except for remote ssh access using public key authentication.
-\item \emph{SSH:} enable root access through SSH public key authentication (\emph{authorized\_keys}).
-\item \emph{Modules:} we make use of the Modules package to simplify the deployment of the software needed to run Hadoop.
-\item \emph{Java:} we used both Oracle Java JDK 1.6 and 1.7
+\item \emph{Firewall:} only inter-cluster communication allowed except for remote ssh access.
+\item \emph{SSH:} ssh key only authentication.
+\item \emph{Java:} both Oracle Java JDK 1.6 and 1.7 are included.
 \item \emph{Hadoop:} different versions of Hadoop are included up to 1.2.1 (latest stable version in the v1 branch). The configuration using Modules makes easy to include additional versions and decide the one we want to use when starting the Hadoop cluster.
+\item \emph{Modules:} allow the user to select different Hadoop environments.
 \end{itemize}
 
-
-This customized image was registered in the EGI Marketplace~\cite{marketplace} which provides a common place where where we can can store images. Unfortunately, the Marketplace does not store the VM images into a common repository, it just shows which resource providers (RPs) have the VM image available at their endpoint. This means that each RP has to manually download the image to his local site in order to make it available at his endpoint. 
+This customized image was registered in the EGI Marketplace~\cite{marketplace} which provides a common place where where we can can store images. The Marketplace does not store the VM images into a common repository, it just shows which resource providers (RPs) have the VM image available at their endpoint. This means that each RP has to manually download the image to his local site in order to make it available at his endpoint. 
 
 % Client: rOCCI + VOMS
-The next step is to instantiate the virtual machines that will form the Hadoop cluster, for this purpose we make use of the new implementation of the OCCI 1.1 specification under rOCCI~\cite{rocci} as well as our VOMS proxy credentials. The new rOCCI implementation provides several advantages like the fact that we are able to avoid the previous issue that all user certificates request are mapped to a single ONE\_USER account.
+To instantiate the virtual machines that will form the Hadoop cluster we used rOCCI~\cite{rocci}, the implementation of the OCCI 1.1 specification developed by one of the authors, using VOMS proxy credentials. The new rOCCI implementation provides several advantages like the fact that we are able to avoid the previous issue that all user certificates request are mapped to a single ONE\_USER account.
 Additionally, the usage of VOMS over plain X509 auth greatly simplifies the access to the different sites that form FedCloud without the need to request each site to give access to our X509 certificate's DN.
 
-Unfortunately FedCloud does not count with a workload management system, so each VM creation request must be sent to the appropriate endpoint. This means that we have to take care ourselves of the partitioning of the cluster between the different FedCloud sites.
+FedCloud does not count with a workload management system, so each VM creation request must be sent to the appropriate endpoint. This means that the user has to take care ourselves of the partitioning of the cluster between the different FedCloud sites.
 
 %\begin{figure}[h]
 %\centering
@@ -43,14 +42,14 @@ Unfortunately FedCloud does not count with a workload management system, so each
 \end{figure}
 
 % Resources used
-About the resources used by each of the instances, in order to increase the concurrent number of VMs, we used small size VM instances with 1GB of RAM and 1 CPU for the wordcount benchmarks and 2GB of RAM and 1 core for the TeraGen and TeraSort bechmarks (see Section \ref{ssect-benchmarks}).
+About the resources used by each of the instances, in order to increase the concurrent number of VMs, we used small size VM instances with 1GB of RAM and 1 CPU for the real-world use cases and 2GB of RAM and 1 core for the TeraGen and TeraSort bechmarks (see Section \ref{ssect-benchmarks}).
 
 
 % Basics about Hadoop services needed: hadoop-master, slaves
-Our Hadoop clusters will consist of one \emph{master} node and a variable number of \emph{slave} nodes depending on the size of the cluster. For example in the case of a 101 node cluster, one node will be configured as master and the remaining 100 as slaves. The master node will run the \emph{namenode}, \emph{secondarynamenode} and \emph{jobtracker} services and each of the slaves will run just one \emph{tasktracker} and one \emph{datanode} services
+The Hadoop clusters consists of one \emph{master} node and a variable number of \emph{slave} nodes depending on the size of the cluster. For example in the case of a 101 node cluster, one node will be configured as master and the remaining 100 as slaves. The master node will run the \emph{namenode}, \emph{secondarynamenode} and \emph{jobtracker} services and each of the slaves will run just one \emph{tasktracker} and one \emph{datanode} services
 due to the fact that we are using small VM instances with just 1GB of RAM and 1 CPU we decide to run just one tasktracker and one datanode per slave. 
 
- The tuned configuration parameters are given in Table \ref{table:conf}. The column type identifies the configuration file where the parameter is set, the complete configuration files can be found at~\cite{scripts}.
+The tuned configuration parameters are given in Table \ref{table:conf}. The column type identifies the configuration file where the parameter is set, the complete configuration files can be found at~\cite{scripts}.
 % TODO: figure showing the master/slave setup and the services
 % Hadoop configuration
 %% Hadoop 1.0.3
@@ -105,28 +104,34 @@ HADOOP\_HEAPSIZE            	 	& hadoop-env   		& 512MB 	\\
 %% TODO: Explain the values of the parameters used
 
 
-\subsection{Benchmark execution}
+\subsection{Benchmarks}
 \label{ssect-execution}
 
-In order to evaluate the suitability of FedCloud to perform Big Data analytics using Hadoop we selected two use cases which are quite representative of a broad range of jobs that could be performed in a Hadoop cluster. The benchmarks were run both in a federated cluster deployment and in a one-site-only cluster deployment, allowing us to compare the results and analyse the expected degradation when using remotely distributed resources.
+In order to evaluate the suitability of FedCloud to perform Big Data analytics using Hadoop we used both the TeraGen and TeraSort benchmarks and a set of selected use cases using real data sets.
 
+% TeraGen/TeraSort
+In the Big Data arena the TeraGen and TeraSort benchmarks could be considered the equivalent of Linpack in HPC. There is even a list equivalent to the well-know Top500 of the most powerful supercomputers in the world. This list was created by Jim Gray and it is know as the Sort Benchmarks~\cite{sortbenchmark}, it is not specific for Hadoop clusters but for any Big Data technology that is able to sort files. Currently the largest sort rate it is achieved by a Hadoop cluster of 2100 nodes that is able to reach a sort rate of 1.42TB/min~\cite{sortbenchmarkyahoo}.
+
+TeraGen is the part of the bechmark that generates the input data set that will be used by TeraSort. It can be configured to run in parallel using the whole cluster so the throughtput it obtains is much higher than a standard HDFS put operation--in our case we used 100 parallel mappers.
+
+TeraSort is a standard MapReduce sort job that uses a custom partitioner with a sorted list of $N-1$ sampled keys to guarantee that the output keys of reduce $n$ are lower than the output keys of reduce $n+1$. This allows the concatenation of all the output files generated by each Reducer--we run 100 reducers--to produce one ordered output file. 
+
+% Selected use cases
+The selected use cases using two well-known data sets which are quite representative of a broad range of jobs that could be performed in a Hadoop cluster--most MapReduce jobs are based on the same type of operations--. The use cases were run both in a federated cluster deployment and in a one-site-only cluster deployment, allowing us to compare the results and analyse the expected degradation when using remotely distributed resources.
 % Encyclopaedia Britannica 1911: 176MB
 %% -put (5 runs)
 %%% Upload from hadoop-master
 %% wordcount (5 runs)
+The first use case--representing small-size Hadoop jobs--is based in the Encyclop{\ae}dia Britannica\cite{britannica} data set--the 1911 version that is already in the public domain--. This represents a rather small data set of just 176MB, so that this use case can be considered as a small scale benchmark that will serve to evaluate the expected degradation in performance due to fact that we will be using federated resources located at different sites. The data set is downloaded directly from the master node and later on it is distributed from there to the slaves, what is called a \emph{put} operation in Hadoop argon. This use case has a great overload due to the creation of rather small mapreduce tasks that will stress the communication system because it uses a rather small block size of just 1MB, so each map operation has little to process.
 
 % Wikipedia: 41GB
 %% -put (1 run)
 %%% Upload from UI (hadoop-master does not have enough space to store it)
 %% wordcount (5 runs)
+The second use case--representing medium-size Hadoop jobs--is based in the Wikipedia\cite{wikipedia} data set. This represents a much larger data set comprising 41GB, so it can be considered a more realistic benchmark of a Big Data application. Due to the size of the data set the files could not be downloaded directly in the master node so the \emph{put} operation is done directly from our local Hadoop client located at CESGA. This use case will incur in a lower task creation penalization because it uses a larger block size of 64MB, so each map task will take much longer than the time needed for its creation.
 
-
-The first use case is based in the Encyclop{\ae}dia Britannica\cite{britannica} data set--the 1911 version that is already in the public domain--. This represents a rather small data set of just 176MB, so that this use case can be considered as a small scale benchmark that will serve to evaluate the expected degradation in performance due to fact that we will be using federated resources located at different sites. The data set is downloaded directly from the master node and later on it is distributed from there to the slaves, what is called a \emph{put} operation in Hadoop argon. This use case has a great overload due to the creation of rather small mapreduce tasks that will stress the communication system because it uses a rather small block size of just 1MB, so each map operation has little to process.
-
-The second use case is based in the Wikipedia\cite{wikipedia} data set. This represents a much larger data set comprising 41GB, so it can be considered a more realistic benchmark of a Big Data application. Due to the size of the data set the files could not be downloaded directly in the master node so the \emph{put} operation is done directly from our local Hadoop client located at CESGA. This use case will incur in a lower task creation penalization because it uses a larger block size of 64MB, so each map task will take much longer than the time needed for its creation.
-
-
-The benchmarks are run for different cluster sizes that range from 10 to 101. In all the benchmarks we measure two parameters:
+ 
+Both use cases were run for different cluster sizes that range from 10 to 101. In all the benchmarks we measure two parameters:
 \begin{enumerate}
 \item \emph{The put time:} the time to load the files into the Hadoop HDFS filesystem 
 \item \emph{The wordcount time:} the time to perform a simple wordcount mapreduce job that computes the number of occurrences of each word over the complete data set. 

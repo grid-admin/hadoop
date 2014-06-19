@@ -1,6 +1,57 @@
 
 %Finally we proceeded with the execution of the specific Big Data use cases described in Section \ref{ssect-execution}.
 
+% Results Teragen/terasort
+In Table \ref{table:terasort} we show the results obtained for the Teragen and Terasort benchmarks. In this case we can generate much larger data sets than the Encyclop{\ae}dia Britannica and Wikipedia use cases presented in Section \ref{ssect-execution}, so we start at 50GB and go up to 2TB. $dfs.blocksize$ was increased to $128MB$ in all the benchmarks. We can see the scaling is good but after reaching 600GB the TeraSort benchmark fails because there is no enough space--total storage available is 2.65GB--to store the intermediate data. In order to evaluate larger data sets we reduced the number of HDFS replicas to one--reducing them to two would not provide much additonal margin--and rerun the whole set of benchmarks. In this way, we could reach 2TB in the Teragen benchmark. Unfortunately having just one replica eliminates the fault tolerance of the system, making the system much less reliable, and causing the larger Terasort benchmarks to consistently fail. 
+
+The best results were obtained using 100 mappers in TeraGen and 100 reducers in TeraSort--the number of mappers is determined by the number of blocks. We saw the importance on using a number of parallel tasks higher than the number of nodes so we can take advantadge of Hadoop's speculative execution, this is something critical in a cloud environment where the performance of the instances is very heterogeneous, depending greatly on the site where it runs and the activity of the other instances that share the same host.
+
+% Rack aware configuration
+Rack awareness was used take into account the node's physical location. Each instance's network gateway is used to define the datacenter part of the \emph{datanode rack id}: $/<GW>/default-rack$. This allows to define the topology automatically in a federated environment--taking into account local rack location is not feasible in this environment.
+
+%% Table results teragen/terasort
+\begin{table}[h!]
+\caption{Results obtained for the TeraGen and TeraSort benchmarks: times where measured in a federated cluster that included 20 slave nodes running at CESGA and 20 at CESNET with the master node at CESGA.  }
+\label{table:terasort}
+%
+\vspace{-0.5em}
+%
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+Dataset size		& replicas & teragen (s)		& terasort (s) 	  \\
+\midrule
+% 3 replicas
+50GB  & 3 & 1342 & 750 \\
+100GB & 3 & 2510 & 1504 \\
+200GB & 3 & 4575 & 3278 \\
+300GB & 3 & 5934 & 5766 \\
+400GB & 3 & 7771 & 7244 \\
+600GB & 3 & 11595 & Failed \\
+800GB & 3 & 15351 & Failed \\
+% 1 replica
+50GB & 1 & 86 & 820 \\
+100GB & 1 & 140 & 1506 \\
+200GB & 1 & 272 & 3472 \\
+300GB & 1 & 379 & 5529 \\
+400GB & 1 & 538 & 7679 \\
+500GB & 1 & 624 & 10094 \\
+600GB & 1 & 715 & Failed \\
+800GB & 1 & 1014 & Failed \\
+%
+\bottomrule
+\multicolumn{4}{c}{\rule{0.98\textwidth}{0em}}\\
+\rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &   \\
+\end{tabular}
+\end{center}
+%\vspace{-3.5em}
+%\tablenotetext[a] {Identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}}
+\end{table}
+
+
+% Use cases
+Additionally to the previous large-scale benchmarks we also evaluated some real-world examples of medium and small Hadoop jobs. These use cases are, from our experience at CESGA, more representative of the typical needs of most users, so they will help to evaluate the suitability of FedCloud for these tasks.
+
 % Results Enc. Britannica
 In Table \ref{table:britannica} we show the results obtained for the Encyclop{\ae}dia Britannica use case. All measurements are repeated 5 times and the average and standard deviation are displayed, allowing to have an estimation of the variability involved in the measurement. As it can be seen even if the block size used in this case is very small (1MB), the wordcount map reduce job scales really well and the overhead introduced by the federated cluster is small, being in general in order of 10-15\%, and 28\% in the worst case that corresponds to the 101 cluster. This is mainly due to the large overhead that mapreduce task creation and distribution imposes in this use case, especially in the larger cluster sizes that involve more reduce tasks--we are using a number of reduce tasks equal to the 95\% of the total number of slaves.
 
@@ -73,50 +124,6 @@ Cluster size				& put (s)		& wordcount (s) 	& put (s)		& wordcount (s)\\
 %\vspace{-3.5em}
 %\tablenotetext[a] {Identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}}
 \end{table}
-
-
-% Results Teragen/terasort
-Finally, in Table \ref{table:terasort} we show the results obtained for the Teragen and Terasort benchmarks. In this case we can generate much larger data sets than the Wikipedia, so we start at 50GB and go up to 2TB. We can see the scaling is good but after reaching 600GB the TeraSort benchmark fails because there is no enough space--total storage available is 2.65GB--to store the intermediate data. In order to evaluate larger data sets we reduced the number of HDFS replicas to one--reducing them to two would not provide much additonal margin--and rerun the whole set of benchmarks. In this way, we could reach 2TB in the Teragen benchmark. Unfortunately having just one replica eliminates the fault tolerance of the system, making the system much less reliable, and causing the larger Terasort benchmarks to consistently fail.
-
-%% Table results teragen/terasort
-\begin{table}[h!]
-\caption{Results obtained for the TeraGen and TeraSort benchmarks: times where measured in a federated cluster that included 20 slave nodes running at CESGA and 20 at CESNET with the master node at CESGA.  }
-\label{table:terasort}
-%
-\vspace{-0.5em}
-%
-\begin{center}
-\begin{tabular}{cccc}
-\toprule
-Dataset size		& replicas & teragen (s)		& terasort (s) 	  \\
-\midrule
-% 3 replicas
-50GB  & 3 & 1342 & 750 \\
-100GB & 3 & 2510 & 1504 \\
-200GB & 3 & 4575 & 3278 \\
-300GB & 3 & 5934 & 5766 \\
-400GB & 3 & 7771 & 7244 \\
-600GB & 3 & 11595 & Failed \\
-800GB & 3 & 15351 & Failed \\
-% 1 replica
-50GB & 1 & 86 & 820 \\
-100GB & 1 & 140 & 1506 \\
-200GB & 1 & 272 & 3472 \\
-300GB & 1 & 379 & 5529 \\
-400GB & 1 & 538 & 7679 \\
-500GB & 1 & 624 & 10094 \\
-600GB & 1 & 715 & Failed \\
-800GB & 1 & 1014 & Failed \\
-%
-\bottomrule
-\multicolumn{4}{c}{\rule{0.98\textwidth}{0em}}\\
-\rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &   \\
-\end{tabular}
-\end{center}
-%\vspace{-3.5em}
-%\tablenotetext[a] {Identifies the configuration file where the parameter is set, the complete configuration files can be found at \url{https://github.com/grid-admin/hadoop}}
-\end{table}
-
 
 
 
