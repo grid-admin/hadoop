@@ -2,15 +2,17 @@
 %Finally we proceeded with the execution of the specific Big Data use cases described in Section \ref{ssect-execution}.
 
 % Results Teragen/terasort
-In Table \ref{table:terasort} we show the results obtained for the Teragen and Terasort benchmarks. In this case we can generate much larger data sets than the Encyclop{\ae}dia Britannica and Wikipedia use cases presented in Section \ref{ssect-execution}, so we start at 50GB and go up to 2TB. $dfs.blocksize$ was increased to $128MB$ in all the benchmarks. We can see the scaling is good but after reaching 600GB the TeraSort benchmark fails because there is no enough space--total storage available is 2.65GB--to store the intermediate data. In order to evaluate larger data sets we reduced the number of HDFS replicas to one--reducing them to two would not provide much additonal margin--and rerun the whole set of benchmarks. In this way, we could reach 2TB in the Teragen benchmark. Unfortunately having just one replica eliminates the fault tolerance of the system, making the system much less reliable, and causing the larger Terasort benchmarks to consistently fail. 
+In Table \ref{table:terasort} we show the results obtained for the TeraGen and TeraSort benchmarks. In this case we can generate much larger data sets than the Encyclop{\ae}dia Britannica and Wikipedia data sets, so we start at 50GB and go up to 2TB. Due to the larger size of the data sets the $dfs.blocksize$ was increased to $128MB$. We can see the scaling is good but after reaching 600GB the TeraSort benchmark fails because there is no enough space--total storage available is 2.65GB--to store the intermediate data. In order to evaluate larger data sets we reduced the number of HDFS replicas to one--reducing them to two would not provide much additonal margin--and rerun the whole set of benchmarks. In this way, we could reach 2TB in the Teragen benchmark. Unfortunately having just one replica eliminates the fault tolerance of the system, making the system much less reliable, and causing the larger TeraSort benchmarks to consistently fail. 
 
-The best results were obtained using 100 mappers in TeraGen and 100 reducers in TeraSort--the number of mappers is determined by the number of blocks. We saw the importance on using a number of parallel tasks higher than the number of nodes so we can take advantadge of Hadoop's speculative execution, this is something critical in a cloud environment where the performance of the instances is very heterogeneous, depending greatly on the site where it runs and the activity of the other instances that share the same host.
+The best results were obtained using 100 mappers in TeraGen and 100 reducers in TeraSort (the number of mappers is determined by the number of blocks). 
+
+We saw the importance of using a number of parallel tasks higher than the number of nodes so we can take advantadge of Hadoop's speculative execution. This is something critical in a cloud environment where the performance of the instances is very heterogeneous, depending greatly on the site where it runs and the activity of the other instances that share the same host.
 
 % Rack aware configuration
-Rack awareness was used take into account the node's physical location. Each instance's network gateway is used to define the datacenter part of the \emph{datanode rack id}: $/<GW>/default-rack$. This allows to define the topology automatically in a federated environment--taking into account local rack location is not feasible in this environment.
+Rack awareness was used take into account the node's physical location. Each instance's network gateway is used to define the datacenter part of the \emph{datanode rack id}: \emph{/<GW>/default-rack}. This allows to define the topology automatically in a federated environment--taking into account local rack location is not feasible in this environment.
 
 % Tuning buffers
-The MapOutput in-memory buffer was also especifically tuned for TeraSort using $io.sort.mb=150$, $io.sort.record.percent=0.138$ and $io.sort.spill.percent=1.0$. This configuration avoids the expensive cost of \emph{spills}--spilling to disk more than once to disk would triple the disk I/O required. 
+The MapOutput in-memory buffer was also especifically tuned for TeraSort using $io.sort.mb=150$, $io.sort.record.percent=0.138$ and $io.sort.spill.percent=1.0$. This configuration avoids the expensive cost of \emph{spills}--spilling to disk more than once would triple the disk I/O required. 
 
 %% Table results teragen/terasort
 \begin{table}[h!]
@@ -53,12 +55,12 @@ Dataset size		& replicas & teragen (s)		& terasort (s) 	  \\
 
 
 % Use cases
-Additionally to the previous large-scale benchmarks we also evaluated some real-world examples of medium and small Hadoop jobs. These use cases are, from our experience at CESGA, more representative of the typical needs of most users, so they will help to evaluate the suitability of FedCloud for these tasks.
+Additionally to the previous large-scale benchmarks we also evaluated some real-world examples of medium and small Hadoop jobs. These use cases are, from our experience, more representative of the typical needs of most users, so they will help to evaluate the suitability of FedCloud for these tasks.
 
 % Results Enc. Britannica
-In Table \ref{table:britannica} we show the results obtained for the Encyclop{\ae}dia Britannica use case. All measurements are repeated 5 times and the average and standard deviation are displayed, allowing to have an estimation of the variability involved in the measurement. As it can be seen even if the block size used in this case is very small (1MB), the wordcount map reduce job scales really well and the overhead introduced by the federated cluster is small, being in general in order of 10-15\%, and 28\% in the worst case that corresponds to the 101 cluster. This is mainly due to the large overhead that mapreduce task creation and distribution imposes in this use case, especially in the larger cluster sizes that involve more reduce tasks--we are using a number of reduce tasks equal to the 95\% of the total number of slaves.
+In Table \ref{table:britannica} we show the results obtained for the Encyclop{\ae}dia Britannica use case. All measurements were repeated 5 times and the average and standard deviation are displayed, allowing to have an estimation of the variability involved in the measurement. As it can be seen even if the block size used in this case is very small (1MB), the wordcount map reduce job scales really well and the overhead introduced by the federated cluster is small, being in general in order of 10-15\%, and 28\% in the worst case that corresponds to the 101 cluster. This is mainly due to the large overhead that MapReduce task creation and distribution imposes in this use case, especially in the larger cluster sizes that involve more reduce tasks (we are using a number of reduce tasks equal to the 95\% of the total number of slaves).
 
-As expected the put times are much lower in one-site-only scenario because in this case the connection between all the VMs is much faster because all of them are generally located in the same data centre.
+As expected the \emph{put} times are much lower in one-site-only scenario because in this case the connection between all the VMs is much faster because all of them are generally located in the same data centre.
 
 %% Table results Enc. Britannica
 \begin{table}[h!]
@@ -95,11 +97,11 @@ Cluster size				& put (s)		& wordcount (s) 	& put (s)		& wordcount (s)\\
 
 
 % Results Wikipedia
-In Table \ref{table:wikipedia} we show the results obtained for the Wikipedia use case. It should be noted that due to the high duration of the transfers, we did not repeat the put measurements 5 times, and only the wordcount measurements were repeated. Also due to the longer duration of the benchmarks we only used the two larger cluster sizes: 51 and 101.
+In Table \ref{table:wikipedia} we show the results obtained for the Wikipedia use case. It should be noted that due to the high duration of the transfers, we did not repeat the \emph{put} measurements 5 times, and only the wordcount measurements were repeated. Also due to the longer duration of the benchmarks we only used the two larger cluster sizes: 51 and 101.
 
-In this case the wordcount mapreduce results are quite surprising because the federated cluster instance is able to outperform the one-site-only instance in both scenarios. This is attributed mainly to the faster execution of the benchmark in CESNET nodes compared to CESGA nodes--CESNET VMs use Xen paravirtualization and a faster CPU whereas CESGA VMs use KVM and QEMU--. In this case the relative overhead due to mapreduce task creation is much lower than in the previous use case because we are using a much larger block size of 64MB.
+In this case the wordcount mapreduce results are quite surprising because the federated cluster instance is able to outperform the one-site-only instance in both scenarios. This is attributed mainly to the faster execution of the benchmark in CESNET nodes compared to CESGA nodes (CESNET VMs use Xen paravirtualization and a faster CPU whereas CESGA VMs use KVM and QEMU). In this case the relative overhead due to MapReduce task creation is much lower than in the previous use case because we are using a much larger block size of 64MB.
 
-The put times are much larger in the federated cluster due to the fact that the amount of data to transfer is much larger--HDFS stores three copies of the Wikipedia, 42GB each, so that the available bandwidth between the VMs and the UI located at CESGA plays a key role, being much lower in the case of CESNET VMs.
+The \emph{put} times are much larger in the federated cluster due to the fact that the amount of data to transfer is much larger: HDFS stores three copies of the Wikipedia, 42GB each, so that the available bandwidth between the VMs and the UI located at CESGA plays a key role, being much lower in the case of CESNET VMs.
 
 %% Table results Wikipedia
 \begin{table}[h!]

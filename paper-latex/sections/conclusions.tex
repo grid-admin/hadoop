@@ -8,7 +8,7 @@ This results show that small VM instances are good enough to run Hadoop workload
 % Step 1: cluster setup
 %% Scalability: Issues when starting more than 20 VMs, some fail
 % Startup conclusions: startup time and reliability
-The initial results showed very disappointing results about the startup times and reliability of the system. Around 3 hours were needed to start the larger cluster with 101 nodes, a high penalty for small and medium size jobs that usually finish in less than an hour. Additionally, failures started to appear when trying to start more than 20 VMs. After analyzing in detail the startup process we saw these failures could be mainly attributed to limitations in the RP cloud management backend and we were able to appropriately tune both the cloud provider backend and our marketplace image, reducing the startup time to less than 20 minutes for the 101-node cluster. This optimization also lead to an improvement of the reliability of the startup process, so no more instances failed during the cluster startup process.
+The initial results showed very disappointing results about the startup times and reliability of the system. Almost 3 hours were needed to start the larger cluster with 101 nodes, a high penalty for small and medium size jobs that usually finish in less than an hour. Additionally, failures started to appear when trying to start more than 20 VMs. After analyzing in detail the startup process we saw these failures could be mainly attributed to limitations in the resource provider cloud management backend. We were able to appropriately tune both the cloud provider backend and our marketplace image, reducing the startup time to less than 20 minutes for the 101-node cluster. This optimization also lead to an improvement of the reliability of the startup process, so no more instances failed during the cluster startup process.
 
 The startup times were compared with those of Amazon EC2. In order to run the measurements, a custom tool had to be developed for deployment of cluster larger than 20 nodes because of the request rate limit imposed by Amazon that causes Whirr to fail in such scenarios. Our measurements showed startup times of around 5 minutes for the larger 101-node cluster, but there were reliability issues in Amazon's infrastructure that caused several nodes not to work properly.
 
@@ -24,7 +24,7 @@ Considering the scalability of the system we were able to run the TeraGen benchm
 
 % Fedcloud improvements
 %% Marketplace: the image is not automatically sync to all sites
-There are some aspects that cloud improve the usability of FedCloud like adding a central workload management system, an automated way in the EGI Marketplace to distribute of the image template to all the sites or a mechanism to query the resources available for use at a given site.
+There are some aspects that cloud improve the usability of FedCloud like adding a central workload management system, an automated way to distribute and synchronize the image between all FedCloud sites, or a mechanism to query the resources available at a given site.
 %Even if we understand that sites want to have strict control over which images run in their sites, a compromise should be established between 
 %% Multi-site: Lack of automatic scheduling
 %% Only two sites had working rOCCI API druing the period of the benchmarks
@@ -37,9 +37,9 @@ There are some aspects that cloud improve the usability of FedCloud like adding 
 
 
 % Future work
-About the future work, we will study the possibility of setting up a Hadoop on demand service on top of the FedCloud infrastructure. We have already implemented such a service locally at CESGA based on our OpenNebula private cloud. Such a service would allow FedCloud other users to easily obtain a testing environment for their Hadoop jobs.
+%About the future work, we will study the possibility of setting up a Hadoop on demand service on top of the FedCloud infrastructure. We have already implemented such a service locally at CESGA based on our OpenNebula private cloud. Such a service would allow FedCloud other users to easily obtain a testing environment for their Hadoop jobs.
 
 % Include the master image in the marketplace of EGI (reference the other paper)
-The set of tools created to deploy and execute the Hadoop service and the configuration files used have been uploaded to github~\cite{scripts}\cite{hadoopondemand} so they can be used by anyone interested in running Hadoop in FedCloud. 
+%The set of tools created to deploy and execute the Hadoop service and the configuration files used have been uploaded to github~\cite{scripts}\cite{hadoopondemand} so they can be used by anyone interested in running Hadoop in FedCloud. 
 
 
