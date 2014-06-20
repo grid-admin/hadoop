@@ -9,6 +9,9 @@ The best results were obtained using 100 mappers in TeraGen and 100 reducers in 
 % Rack aware configuration
 Rack awareness was used take into account the node's physical location. Each instance's network gateway is used to define the datacenter part of the \emph{datanode rack id}: $/<GW>/default-rack$. This allows to define the topology automatically in a federated environment--taking into account local rack location is not feasible in this environment.
 
+% Tuning buffers
+The MapOutput in-memory buffer was also especifically tuned for TeraSort using $io.sort.mb=150$, $io.sort.record.percent=0.138$ and $io.sort.spill.percent=1.0$. This configuration avoids the expensive cost of \emph{spills}--spilling to disk more than once to disk would triple the disk I/O required. 
+
 %% Table results teragen/terasort
 \begin{table}[h!]
 \caption{Results obtained for the TeraGen and TeraSort benchmarks: times where measured in a federated cluster that included 20 slave nodes running at CESGA and 20 at CESNET with the master node at CESGA.  }
