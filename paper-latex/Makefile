@@ -73,8 +73,10 @@ obj/$(PROJECT).aux: $(TEX_FILES) $(IMG_FILES) | obj/
 obj/$(PROJECT).bbl: $(BIB_FILES) | obj/$(PROJECT).aux
 ifneq ($(BIB_FILES),)
 	bibtex obj/$(PROJECT)
-	pdflatex $(PDFLATEX_FLAGS) $(PROJECT)
+	xelatex $(PDFLATEX_FLAGS) $(PROJECT)
+	#pdflatex $(PDFLATEX_FLAGS) $(PROJECT)
 endif
 	
 obj/$(PROJECT).pdf: obj/$(PROJECT).aux obj/$(PROJECT).bbl
-	pdflatex $(PDFLATEX_FLAGS) $(PROJECT)
+	xelatex $(PDFLATEX_FLAGS) $(PROJECT)
+	#pdflatex $(PDFLATEX_FLAGS) $(PROJECT)

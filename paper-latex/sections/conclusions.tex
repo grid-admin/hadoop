@@ -12,7 +12,7 @@ The initial results showed very disappointing results about the startup times an
 
 The startup times were compared with those of Amazon EC2. In order to run the measurements, a custom tool had to be developed for deployment of cluster larger than 20 nodes because of the request rate limit imposed by Amazon that causes Whirr to fail in such scenarios. Our measurements showed startup times of around 5 minutes for the larger 101-node cluster, but there were reliability issues in Amazon's infrastructure that caused several nodes not to work properly.
 
-%Step 2: bechmarks
+%Step 2: benchmarks
 
 
 % deploying data set is very slow
@@ -24,7 +24,7 @@ Considering the scalability of the system we were able to run the TeraGen benchm
 
 % Fedcloud improvements
 %% Marketplace: the image is not automatically sync to all sites
-There are some aspects that cloud improve the usability of FedCloud like adding a central workload management system, an automated way to distribute and synchronize the image between all FedCloud sites, or a mechanism to query the resources available at a given site.
+There are some aspects that could improve the usability of FedCloud like adding a central workload management system, an automated way to distribute and synchronize the image between all sites, or a mechanism to query the resources available at a given site.
 %Even if we understand that sites want to have strict control over which images run in their sites, a compromise should be established between 
 %% Multi-site: Lack of automatic scheduling
 %% Only two sites had working rOCCI API druing the period of the benchmarks

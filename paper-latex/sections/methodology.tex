@@ -33,7 +33,7 @@ A customized virtual machine (VM) image was created including different versions
 This customized image was registered in the EGI Marketplace~\cite{marketplace} which provides a common place where where we can can store images. The Marketplace does not store the VM images into a common repository, it just shows which resource providers (RPs) have the VM image available at their endpoint. This means that each RP has to manually download the image to his local site in order to make it available at his endpoint. 
 
 % Client: rOCCI + VOMS
-To instantiate the virtual machines that will form the Hadoop cluster we used rOCCI~\cite{rocci}, the implementation of the OCCI 1.1 specification developed by one of the authors, using VOMS proxy credentials. The new rOCCI implementation provides several advantages like the fact that we are able to avoid the previous issue that all user certificates request are mapped to a single ONE\_USER account.
+To instantiate the virtual machines that will form the Hadoop cluster we used rOCCI~\cite{rocci}, the implementation of the OCCI 1.1 specification developed by one of the authors, using VOMS proxy credentials. The new rOCCI implementation provides several advantages, like the fact that we are able to avoid the previous issue that all user certificates request are mapped to a single ONE\_USER account.
 Additionally, the usage of VOMS over plain X509 auth greatly simplifies the access to the different sites that form FedCloud without the need to request each site to give access to our X509 certificate's DN.
 
 FedCloud does not count with a workload management system, so each VM creation request must be sent to the appropriate endpoint, and we should take care of partitioning the cluster between the different FedCloud resource providers.
@@ -66,7 +66,7 @@ Our Hadoop installation will cope with two very different use cases that influen
 
 %% table with the parameters used
 % TODO: complete the table
-\begin{table}[h!]
+\begin{table}[tb!]
 \caption{Tuned Hadoop configuration for small VM instances. It includes both the HDFS and MapReduce parameters used.}
 \label{table:conf}
 %

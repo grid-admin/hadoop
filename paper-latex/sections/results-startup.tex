@@ -6,9 +6,9 @@ Some of the rOCCI requests failed with an \emph{execution expired} error and som
 %An error occurred! Message: execution expired
 %An error occurred! Message: HTTP Response status: [500] Internal Server Error!
 %\end{verbatim}
-We started to see this type of errors as soon as we tried to deploy, in a sequential way, more than 20 VMs at CESGA. In CESNET we could not do this analysis because there were only 10 VM slots available at the time of the benchmarks, due to a restriction in the amount of public IPs that they had available.
+This type of errors where observed when deploying more than 20 VMs at CESGA. This analysis could not be done in CESNET because there were only 10 VM slots available at the time of the benchmarks, due to a restriction in the amount of public IPs that they had available.
 
-Trying to understand the source of this issue we tracked the performance of the OpenNebula frontend during the cluster startup. As it can be seen in Figure \ref{fig:on} the frontend experiences a high load several minutes after the start of the cluster deployment, this causes it to respond slower, probably producing the rOCCI execution expiration errors mentioned above. Looking at the processes in the OpenNebula frontend, we could see that this increase in the load is mainly due to the \emph{scp} processes launched to copy the image template to the OpenNebula nodes, more than 20 simultaneous scp processes seem to affect considerably the system performance, reducing its response times considerably.
+Trying to understand the source of this issue the performance of the OpenNebula frontend was tracked during the cluster startup. As it can be seen in Figure \ref{fig:on} the frontend experiences a high load several minutes after the start of the cluster deployment, this causes it to respond slower, producing the rOCCI execution expiration errors mentioned above. Looking at the processes in the OpenNebula frontend, we could see that this increase in the load is mainly due to the \emph{scp} processes launched to copy the image template to the OpenNebula nodes, more than 20 simultaneous scp processes seem to affect considerably the system performance, reducing its response times considerably. The copy process is also limited by the fact that the frontend has only 1 Gbps connectivity, acting as a bottleneck for the image delivery process.
 
 % * Deploying 101 VMs:
 %{{{
@@ -37,7 +37,7 @@ Trying to understand the source of this issue we tracked the performance of the 
 %FedCloud does not count with a workload management system, so each VM creation request must be sent to the appropriate endpoint. This means that the partitioning of the cluster between the different FedCloud sites should be done in advance. In our case we run 10 VM at CESNET--the maximum possible at the time of the benchmarks--and the rest of them at CESGA--ranging from 10 to 91.
 
 % Optimized startup times
-In order to optimize the startup times we reduced the size of the image to 4GB and OpenNebula and OpenStack templates were re-configured to create on-the-fly an additional disk of 70GB, using a \emph{fs} disk type in OpenNebula and an \emph{ephemeral} disk in OpenStack. Additionally we modified the \emph{datastore} used in OpenNebula, so that the transfer manager (TM) used is \emph{shared} instead of \emph{ssh}. Since the instances are declared as non-persistent, this allows to perform a powerful optimization in the instance deployment process done by OpenNebula because the image copy process will be no longer done in a centralized way from the front-end node but in parallel from each node using a simple copy operation from the shared storage. The optimized startup times can be found in Table \ref{table:startupON}.
+In order to optimize the startup times we reduced the size of the image to 4GB. But this configuration would not leave enough space for applications, to solve this issue an additional disk of 70GB was created on-the-fly using a \emph{fs} disk type in OpenNebula and an \emph{ephemeral} disk in OpenStack. Furthermore, we modified the \emph{datastore} used in OpenNebula, so that the transfer manager (TM) used is \emph{shared} instead of \emph{ssh}. Since the instances are declared as non-persistent, this allows to perform a powerful optimization in the instance deployment process done by OpenNebula because the image copy process will be no longer done in a centralized way from the front-end node but in parallel from each node using a simple copy operation from the shared storage. The optimized startup times can be found in Table \ref{table:startupON}.
 
 %% Table results startup OpenNebula
 \begin{table}[h!]
@@ -47,18 +47,18 @@ In order to optimize the startup times we reduced the size of the image to 4GB a
 \vspace{-0.5em}
 %
 \begin{center}
-\begin{tabular}{ccl}
+\begin{tabular}{cc}
 \toprule
-Cluster size			& Startup time (s)	& Comments	  \\
+Cluster size			& Startup time (s)  \\
 \midrule
-10                		& 249   		&	 \\
-21                   		& 269			&        \\
-51                   		& 822 			&        \\
-101                  		& 1096			&        \\
+10                		& 249   	\\
+21                   		& 269	      	\\
+51                   		& 822 	    	\\
+101                  		& 1096		\\
 %
 \bottomrule
-\multicolumn{3}{c}{\rule{0.98\textwidth}{0em}}\\
-\rule{0.2\textwidth}{0cm} & \rule{0.2\textwidth}{0cm} &  \\
+\multicolumn{2}{c}{\rule{0.98\textwidth}{0em}}\\
+\rule{0.5\textwidth}{0cm} &   \\
 \end{tabular}
 \end{center}
 \end{table}
@@ -73,7 +73,7 @@ Amazon Elastic Compute Cloud (Amazon EC2) is a very popular commercial cloud pla
 There are different tools available to create clusters in Amazon EC2, being Apache Whirr~\cite{whirr} one of the most popular. The Apache Whirr project started as a set of bash scripts distributed with Apache Hadoop for running Hadoop clusters on Amazon EC2, but it evolved to a Java version based on Apache jclouds~\cite{jclouds}, an open source multi-cloud toolkit that allows Whirr to support many different cloud providers. 
 Unfortunately Whirr does not scale well due to the large number of REST requests it sends to the Amazon API that causes Amazon to temporarily block the client with a \emph{Request limit exceeded} error. The largest cluster we were able to launch in the eu-west-1 region was 21 nodes (see Table \ref{table:whirr}).
 
-To avoid this issue we developed a custom tool~\cite{hadoopondemand} to create and configure the Hadoop cluster that used Amazon EC2 \emph{instance-count} functionality to request all the instances in the same REST request avoiding the \emph{Request limit exceeded} problem. The results are shown in Table \ref{table:ec2}. It can be seen that all the startup times are below 5 minutes. It should be taken into account that both the 51 and 101 cluster startups had all nodes that could not be reached for different reasons. In some cases the instance launch directly failed but in most cases the failing instances are just running correctly but they are not reachable from the other nodes in the cluster due to a security group internal network issue at Amazon.
+To avoid this issue a custom tool~\cite{hadoopondemand} to create and configure the Hadoop cluster was developed. This tool used Amazon EC2 \emph{instance-count} functionality to request all the instances in the same REST request avoiding the \emph{Request limit exceeded} problem. The results are shown in Table \ref{table:ec2}. It can be seen that all the startup times are below 5 minutes. It is especially relevant the fact that both in the 51 and 101 clusters there where nodes that could not be reached for different reasons. In some cases the instance launch directly failed and the error was reported by Amazon. However, in most cases the failing instances were reported as ready, but they were not reachable from the other nodes in the cluster. The reason seems to be a security group internal network issue at Amazon.
 
 
 %% Table results Amazon EC2: using whirr
