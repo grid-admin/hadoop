@@ -1,0 +1,78 @@
+Generating 1000000000 using 100 maps with step of 10000000
+14/06/13 15:21:57 INFO mapred.JobClient: Running job: job_201406122141_0013
+14/06/13 15:21:58 INFO mapred.JobClient:  map 0% reduce 0%
+14/06/13 15:22:38 INFO mapred.JobClient:  map 1% reduce 0%
+14/06/13 15:22:56 INFO mapred.JobClient:  map 2% reduce 0%
+14/06/13 15:23:21 INFO mapred.JobClient:  map 3% reduce 0%
+14/06/13 15:23:45 INFO mapred.JobClient:  map 4% reduce 0%
+14/06/13 15:24:10 INFO mapred.JobClient:  map 5% reduce 0%
+14/06/13 15:24:35 INFO mapred.JobClient:  map 6% reduce 0%
+14/06/13 15:24:50 INFO mapred.JobClient:  map 7% reduce 0%
+14/06/13 15:25:14 INFO mapred.JobClient:  map 8% reduce 0%
+14/06/13 15:25:22 INFO mapred.JobClient:  map 9% reduce 0%
+14/06/13 15:25:36 INFO mapred.JobClient:  map 10% reduce 0%
+14/06/13 15:25:55 INFO mapred.JobClient:  map 11% reduce 0%
+14/06/13 15:26:14 INFO mapred.JobClient:  map 12% reduce 0%
+14/06/13 15:26:40 INFO mapred.JobClient:  map 13% reduce 0%
+14/06/13 15:27:06 INFO mapred.JobClient:  map 14% reduce 0%
+14/06/13 15:27:27 INFO mapred.JobClient:  map 15% reduce 0%
+14/06/13 15:27:52 INFO mapred.JobClient:  map 16% reduce 0%
+14/06/13 15:28:16 INFO mapred.JobClient:  map 17% reduce 0%
+14/06/13 15:28:37 INFO mapred.JobClient:  map 18% reduce 0%
+14/06/13 15:28:57 INFO mapred.JobClient:  map 19% reduce 0%
+14/06/13 15:29:17 INFO mapred.JobClient:  map 20% reduce 0%
+14/06/13 15:29:36 INFO mapred.JobClient:  map 21% reduce 0%
+14/06/13 15:29:55 INFO mapred.JobClient:  map 22% reduce 0%
+14/06/13 15:30:17 INFO mapred.JobClient:  map 23% reduce 0%
+14/06/13 15:30:40 INFO mapred.JobClient:  map 24% reduce 0%
+14/06/13 15:30:58 INFO mapred.JobClient:  map 25% reduce 0%
+14/06/13 15:31:13 INFO mapred.JobClient:  map 26% reduce 0%
+14/06/13 15:31:33 INFO mapred.JobClient:  map 27% reduce 0%
+14/06/13 15:31:54 INFO mapred.JobClient:  map 28% reduce 0%
+14/06/13 15:32:21 INFO mapred.JobClient:  map 29% reduce 0%
+14/06/13 15:32:46 INFO mapred.JobClient:  map 30% reduce 0%
+14/06/13 15:33:04 INFO mapred.JobClient:  map 31% reduce 0%
+14/06/13 15:33:14 INFO mapred.JobClient: Job complete: job_201406122141_0013
+14/06/13 15:33:14 INFO mapred.JobClient: Counters: 19
+14/06/13 15:33:14 INFO mapred.JobClient:   Job Counters 
+14/06/13 15:33:14 INFO mapred.JobClient:     SLOTS_MILLIS_MAPS=25981321
+14/06/13 15:33:14 INFO mapred.JobClient:     Total time spent by all reduces waiting after reserving slots (ms)=0
+14/06/13 15:33:14 INFO mapred.JobClient:     Total time spent by all maps waiting after reserving slots (ms)=0
+14/06/13 15:33:14 INFO mapred.JobClient:     Launched map tasks=43
+14/06/13 15:33:14 INFO mapred.JobClient:     SLOTS_MILLIS_REDUCES=4463
+14/06/13 15:33:14 INFO mapred.JobClient:   File Input Format Counters 
+14/06/13 15:33:14 INFO mapred.JobClient:     Bytes Read=0
+14/06/13 15:33:14 INFO mapred.JobClient:   File Output Format Counters 
+14/06/13 15:33:14 INFO mapred.JobClient:     Bytes Written=3000000000
+14/06/13 15:33:14 INFO mapred.JobClient:   FileSystemCounters
+14/06/13 15:33:14 INFO mapred.JobClient:     HDFS_BYTES_READ=258
+14/06/13 15:33:14 INFO mapred.JobClient:     FILE_BYTES_WRITTEN=167501
+14/06/13 15:33:14 INFO mapred.JobClient:     HDFS_BYTES_WRITTEN=3000000000
+14/06/13 15:33:14 INFO mapred.JobClient:   Map-Reduce Framework
+14/06/13 15:33:14 INFO mapred.JobClient:     Map input records=30000000
+14/06/13 15:33:14 INFO mapred.JobClient:     Physical memory (bytes) snapshot=258916352
+14/06/13 15:33:14 INFO mapred.JobClient:     Spilled Records=0
+14/06/13 15:33:14 INFO mapred.JobClient:     CPU time spent (ms)=54350
+14/06/13 15:33:14 INFO mapred.JobClient:     Total committed heap usage (bytes)=80347136
+14/06/13 15:33:14 INFO mapred.JobClient:     Virtual memory (bytes) snapshot=2181259264
+14/06/13 15:33:14 INFO mapred.JobClient:     Map input bytes=30000000
+14/06/13 15:33:14 INFO mapred.JobClient:     Map output records=30000000
+14/06/13 15:33:14 INFO mapred.JobClient:     SPLIT_RAW_BYTES=258
+14/06/13 15:33:14 INFO mapred.JobClient: Job Failed: NA
+java.io.IOException: Job failed!
+	at org.apache.hadoop.mapred.JobClient.runJob(JobClient.java:1357)
+	at org.apache.hadoop.examples.terasort.TeraGen.run(TeraGen.java:352)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:65)
+	at org.apache.hadoop.examples.terasort.TeraGen.main(TeraGen.java:357)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:68)
+	at org.apache.hadoop.util.ProgramDriver.driver(ProgramDriver.java:139)
+	at org.apache.hadoop.examples.ExampleDriver.main(ExampleDriver.java:64)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:160)

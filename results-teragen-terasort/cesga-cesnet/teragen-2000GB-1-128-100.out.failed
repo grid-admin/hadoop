@@ -1,0 +1,62 @@
+14/06/06 19:31:51 WARN hdfs.DFSClient: Error Recovery for blk_-7962818041940443642_1006 bad datanode[1] nodes == null
+14/06/06 19:31:51 WARN hdfs.DFSClient: Could not get block locations. Source file "/scratch/hadoop/mapred/staging/hadoop/.staging/job_201406061847_0002/job.split" - Aborting...
+14/06/06 19:31:51 INFO mapred.JobClient: Cleaning up the staging area hdfs://hadoop-master:54310/scratch/hadoop/mapred/staging/hadoop/.staging/job_201406061847_0002
+14/06/06 19:31:51 ERROR security.UserGroupInformation: PriviledgedActionException as:hadoop cause:java.io.IOException: Bad connect ack with firstBadLink as 155.210.198.147:50010
+java.io.IOException: Bad connect ack with firstBadLink as 155.210.198.147:50010
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.createBlockOutputStream(DFSClient.java:3675)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.nextBlockOutputStream(DFSClient.java:3588)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.access$2600(DFSClient.java:2783)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream$DataStreamer.run(DFSClient.java:3023)
+14/06/06 19:31:51 ERROR hdfs.DFSClient: Failed to close file /scratch/hadoop/mapred/staging/hadoop/.staging/job_201406061847_0002/job.split
+java.io.IOException: Bad connect ack with firstBadLink as 155.210.198.147:50010
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.createBlockOutputStream(DFSClient.java:3675)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.nextBlockOutputStream(DFSClient.java:3588)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.access$2600(DFSClient.java:2783)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream$DataStreamer.run(DFSClient.java:3023)
+
+real    6m21.764s
+user    0m2.383s
+sys     0m0.236s
+[hadoop@hadoop-master ~]$ time hadoop jar /opt/cesga/hadoop/hadoop-*examples*.jar teragen $((100*1000*10))  /user/hadoop/terasort-input^C
+[hadoop@hadoop-master ~]$ hadoop fs -ls /user/hadoop/terasort-input
+ls: Cannot access /user/hadoop/terasort-input: No such file or directory.
+[hadoop@hadoop-master ~]$ time hadoop jar /opt/cesga/hadoop/hadoop-*examples*.jar teragen $((100*1000*10))  /user/hadoop/terasort-input
+14/06/06 19:36:54 INFO hdfs.DFSClient: Exception in createBlockOutputStream 147.251.3.192:50010 java.io.IOException: Bad connect ack with firstBadLink as 155.210.198.159:50010
+14/06/06 19:36:54 INFO hdfs.DFSClient: Abandoning blk_4933049055334392037_1007
+14/06/06 19:36:54 INFO hdfs.DFSClient: Excluding datanode 155.210.198.159:50010
+14/06/06 19:37:57 INFO hdfs.DFSClient: Exception in createBlockOutputStream 155.210.198.143:50010 java.net.ConnectException: Expiró el tiempo de conexión
+14/06/06 19:37:57 INFO hdfs.DFSClient: Abandoning blk_4311166379003521026_1007
+14/06/06 19:37:57 INFO hdfs.DFSClient: Excluding datanode 155.210.198.143:50010
+14/06/06 19:39:00 INFO hdfs.DFSClient: Exception in createBlockOutputStream 147.251.3.64:50010 java.io.IOException: Bad connect ack with firstBadLink as 155.210.198.145:50010
+14/06/06 19:39:00 INFO hdfs.DFSClient: Abandoning blk_8885396992280944552_1007
+14/06/06 19:39:00 INFO hdfs.DFSClient: Excluding datanode 155.210.198.145:50010
+
+
+14/06/06 19:40:03 INFO hdfs.DFSClient: Exception in createBlockOutputStream 193.144.35.191:50010 java.io.IOException: Bad connect ack with firstBadLink as 155.210.198.153:50010
+14/06/06 19:40:03 INFO hdfs.DFSClient: Abandoning blk_8771181662251835960_1007
+14/06/06 19:40:03 INFO hdfs.DFSClient: Excluding datanode 155.210.198.153:50010
+14/06/06 19:40:03 WARN hdfs.DFSClient: DataStreamer Exception: java.io.IOException: Unable to create new block.
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.nextBlockOutputStream(DFSClient.java:3605)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.access$2600(DFSClient.java:2783)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream$DataStreamer.run(DFSClient.java:3023)
+
+14/06/06 19:40:03 WARN hdfs.DFSClient: Error Recovery for blk_8771181662251835960_1007 bad datanode[1] nodes == null
+14/06/06 19:40:03 WARN hdfs.DFSClient: Could not get block locations. Source file "/scratch/hadoop/mapred/staging/hadoop/.staging/job_201406061847_0003/job.jar" - Aborting...
+14/06/06 19:40:03 INFO mapred.JobClient: Cleaning up the staging area hdfs://hadoop-master:54310/scratch/hadoop/mapred/staging/hadoop/.staging/job_201406061847_0003
+14/06/06 19:40:03 ERROR security.UserGroupInformation: PriviledgedActionException as:hadoop cause:java.io.IOException: Bad connect ack with firstBadLink as 155.210.198.153:50010
+java.io.IOException: Bad connect ack with firstBadLink as 155.210.198.153:50010
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.createBlockOutputStream(DFSClient.java:3675)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.nextBlockOutputStream(DFSClient.java:3588)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.access$2600(DFSClient.java:2783)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream$DataStreamer.run(DFSClient.java:3023)
+14/06/06 19:40:03 ERROR hdfs.DFSClient: Failed to close file /scratch/hadoop/mapred/staging/hadoop/.staging/job_201406061847_0003/job.jar
+java.io.IOException: Bad connect ack with firstBadLink as 155.210.198.153:50010
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.createBlockOutputStream(DFSClient.java:3675)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.nextBlockOutputStream(DFSClient.java:3588)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream.access$2600(DFSClient.java:2783)
+        at org.apache.hadoop.hdfs.DFSClient$DFSOutputStream$DataStreamer.run(DFSClient.java:3023)
+
+real    4m14.972s
+user    0m2.345s
+sys     0m0.175s
+

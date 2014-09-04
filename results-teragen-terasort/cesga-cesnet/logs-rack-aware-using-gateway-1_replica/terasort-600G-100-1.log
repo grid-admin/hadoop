@@ -1,0 +1,456 @@
+14/06/16 22:49:50 INFO terasort.TeraSort: starting
+14/06/16 22:49:51 INFO mapred.FileInputFormat: Total input paths to process : 100
+14/06/16 22:49:55 WARN snappy.LoadSnappy: Snappy native library is available
+14/06/16 22:49:55 INFO util.NativeCodeLoader: Loaded the native-hadoop library
+14/06/16 22:49:55 INFO snappy.LoadSnappy: Snappy native library loaded
+14/06/16 22:50:00 INFO zlib.ZlibFactory: Successfully loaded & initialized native-zlib library
+14/06/16 22:50:00 INFO compress.CodecPool: Got brand-new compressor
+Making 100 from 100000 records
+Step size is 1000.0
+14/06/16 22:50:01 INFO mapred.FileInputFormat: Total input paths to process : 100
+14/06/16 22:50:08 INFO mapred.JobClient: Running job: job_201406131535_0050
+14/06/16 22:50:09 INFO mapred.JobClient:  map 0% reduce 0%
+14/06/16 22:50:42 INFO mapred.JobClient:  map 1% reduce 0%
+14/06/16 22:51:10 INFO mapred.JobClient:  map 2% reduce 0%
+14/06/16 22:51:34 INFO mapred.JobClient:  map 3% reduce 0%
+14/06/16 22:51:58 INFO mapred.JobClient:  map 4% reduce 0%
+14/06/16 22:52:23 INFO mapred.JobClient:  map 5% reduce 0%
+14/06/16 22:52:51 INFO mapred.JobClient:  map 6% reduce 0%
+14/06/16 22:53:35 INFO mapred.JobClient:  map 7% reduce 0%
+14/06/16 22:54:26 INFO mapred.JobClient:  map 8% reduce 0%
+14/06/16 22:55:08 INFO mapred.JobClient:  map 9% reduce 0%
+14/06/16 22:55:52 INFO mapred.JobClient:  map 9% reduce 1%
+14/06/16 22:55:55 INFO mapred.JobClient:  map 10% reduce 1%
+14/06/16 22:56:43 INFO mapred.JobClient:  map 11% reduce 1%
+14/06/16 22:57:19 INFO mapred.JobClient:  map 12% reduce 1%
+14/06/16 22:57:51 INFO mapred.JobClient:  map 13% reduce 1%
+14/06/16 22:58:26 INFO mapred.JobClient:  map 14% reduce 1%
+14/06/16 22:58:57 INFO mapred.JobClient:  map 15% reduce 1%
+14/06/16 22:59:16 INFO mapred.JobClient:  map 15% reduce 2%
+14/06/16 22:59:30 INFO mapred.JobClient:  map 16% reduce 2%
+14/06/16 23:00:01 INFO mapred.JobClient:  map 17% reduce 2%
+14/06/16 23:00:35 INFO mapred.JobClient:  map 18% reduce 2%
+14/06/16 23:01:06 INFO mapred.JobClient:  map 19% reduce 2%
+14/06/16 23:01:39 INFO mapred.JobClient:  map 20% reduce 2%
+14/06/16 23:02:12 INFO mapred.JobClient:  map 21% reduce 2%
+14/06/16 23:02:43 INFO mapred.JobClient:  map 22% reduce 2%
+14/06/16 23:03:18 INFO mapred.JobClient:  map 23% reduce 2%
+14/06/16 23:03:21 INFO mapred.JobClient:  map 23% reduce 3%
+14/06/16 23:03:52 INFO mapred.JobClient:  map 24% reduce 3%
+14/06/16 23:04:23 INFO mapred.JobClient:  map 25% reduce 3%
+14/06/16 23:04:54 INFO mapred.JobClient:  map 26% reduce 3%
+14/06/16 23:05:28 INFO mapred.JobClient:  map 27% reduce 3%
+14/06/16 23:06:00 INFO mapred.JobClient:  map 28% reduce 3%
+14/06/16 23:06:36 INFO mapred.JobClient:  map 29% reduce 3%
+14/06/16 23:07:25 INFO mapred.JobClient:  map 30% reduce 3%
+14/06/16 23:08:00 INFO mapred.JobClient:  map 30% reduce 4%
+14/06/16 23:08:30 INFO mapred.JobClient:  map 31% reduce 4%
+14/06/16 23:09:27 INFO mapred.JobClient:  map 32% reduce 4%
+14/06/16 23:10:15 INFO mapred.JobClient:  map 33% reduce 4%
+14/06/16 23:10:59 INFO mapred.JobClient:  map 34% reduce 4%
+14/06/16 23:11:33 INFO mapred.JobClient:  map 35% reduce 4%
+14/06/16 23:12:11 INFO mapred.JobClient:  map 36% reduce 4%
+14/06/16 23:12:46 INFO mapred.JobClient:  map 37% reduce 4%
+14/06/16 23:13:19 INFO mapred.JobClient:  map 38% reduce 4%
+14/06/16 23:13:22 INFO mapred.JobClient:  map 38% reduce 5%
+14/06/16 23:13:54 INFO mapred.JobClient:  map 39% reduce 5%
+14/06/16 23:14:25 INFO mapred.JobClient:  map 40% reduce 5%
+14/06/16 23:14:58 INFO mapred.JobClient:  map 41% reduce 5%
+14/06/16 23:15:34 INFO mapred.JobClient:  map 42% reduce 5%
+14/06/16 23:16:12 INFO mapred.JobClient:  map 43% reduce 5%
+14/06/16 23:17:01 INFO mapred.JobClient:  map 44% reduce 5%
+14/06/16 23:18:02 INFO mapred.JobClient:  map 45% reduce 5%
+14/06/16 23:18:37 INFO mapred.JobClient:  map 45% reduce 6%
+14/06/16 23:18:55 INFO mapred.JobClient:  map 46% reduce 6%
+14/06/16 23:19:40 INFO mapred.JobClient:  map 47% reduce 6%
+14/06/16 23:20:18 INFO mapred.JobClient:  map 48% reduce 6%
+14/06/16 23:20:58 INFO mapred.JobClient:  map 49% reduce 6%
+14/06/16 23:21:35 INFO mapred.JobClient:  map 50% reduce 6%
+14/06/16 23:22:09 INFO mapred.JobClient:  map 51% reduce 6%
+14/06/16 23:22:43 INFO mapred.JobClient:  map 52% reduce 6%
+14/06/16 23:23:16 INFO mapred.JobClient:  map 53% reduce 6%
+14/06/16 23:23:20 INFO mapred.JobClient:  map 53% reduce 7%
+14/06/16 23:23:50 INFO mapred.JobClient:  map 54% reduce 7%
+14/06/16 23:24:26 INFO mapred.JobClient:  map 55% reduce 7%
+14/06/16 23:25:04 INFO mapred.JobClient:  map 56% reduce 7%
+14/06/16 23:25:43 INFO mapred.JobClient:  map 57% reduce 7%
+14/06/16 23:26:33 INFO mapred.JobClient:  map 58% reduce 7%
+14/06/16 23:27:32 INFO mapred.JobClient:  map 59% reduce 7%
+14/06/16 23:28:30 INFO mapred.JobClient:  map 60% reduce 7%
+14/06/16 23:29:00 INFO mapred.JobClient:  map 60% reduce 8%
+14/06/16 23:29:22 INFO mapred.JobClient:  map 61% reduce 8%
+14/06/16 23:30:07 INFO mapred.JobClient:  map 62% reduce 8%
+14/06/16 23:30:51 INFO mapred.JobClient:  map 63% reduce 8%
+14/06/16 23:31:31 INFO mapred.JobClient:  map 64% reduce 8%
+14/06/16 23:32:15 INFO mapred.JobClient:  map 65% reduce 8%
+14/06/16 23:32:54 INFO mapred.JobClient:  map 66% reduce 8%
+14/06/16 23:33:36 INFO mapred.JobClient:  map 67% reduce 8%
+14/06/16 23:34:24 INFO mapred.JobClient:  map 68% reduce 8%
+14/06/16 23:34:25 INFO mapred.JobClient:  map 68% reduce 9%
+14/06/16 23:35:09 INFO mapred.JobClient:  map 69% reduce 9%
+14/06/16 23:36:02 INFO mapred.JobClient:  map 70% reduce 9%
+14/06/16 23:37:01 INFO mapred.JobClient:  map 71% reduce 9%
+14/06/16 23:38:09 INFO mapred.JobClient:  map 72% reduce 9%
+14/06/16 23:39:23 INFO mapred.JobClient:  map 73% reduce 9%
+14/06/16 23:40:32 INFO mapred.JobClient:  map 74% reduce 9%
+14/06/16 23:41:28 INFO mapred.JobClient:  map 75% reduce 9%
+14/06/16 23:42:04 INFO mapred.JobClient:  map 75% reduce 10%
+14/06/16 23:42:31 INFO mapred.JobClient:  map 76% reduce 10%
+14/06/16 23:43:35 INFO mapred.JobClient:  map 77% reduce 10%
+14/06/16 23:44:31 INFO mapred.JobClient:  map 78% reduce 10%
+14/06/16 23:45:31 INFO mapred.JobClient:  map 79% reduce 10%
+14/06/16 23:46:38 INFO mapred.JobClient:  map 80% reduce 10%
+14/06/16 23:47:43 INFO mapred.JobClient:  map 81% reduce 10%
+14/06/16 23:48:58 INFO mapred.JobClient:  map 82% reduce 10%
+14/06/16 23:50:10 INFO mapred.JobClient:  map 83% reduce 10%
+14/06/16 23:50:17 INFO mapred.JobClient:  map 83% reduce 11%
+14/06/16 23:51:19 INFO mapred.JobClient:  map 84% reduce 11%
+14/06/16 23:52:33 INFO mapred.JobClient:  map 85% reduce 11%
+14/06/16 23:53:56 INFO mapred.JobClient:  map 86% reduce 11%
+14/06/16 23:55:36 INFO mapred.JobClient:  map 87% reduce 11%
+14/06/16 23:57:19 INFO mapred.JobClient:  map 88% reduce 11%
+14/06/16 23:58:54 INFO mapred.JobClient:  map 89% reduce 11%
+14/06/17 00:00:27 INFO mapred.JobClient:  map 90% reduce 11%
+14/06/17 00:01:06 INFO mapred.JobClient:  map 90% reduce 12%
+14/06/17 00:01:56 INFO mapred.JobClient:  map 91% reduce 12%
+14/06/17 00:03:19 INFO mapred.JobClient:  map 92% reduce 12%
+14/06/17 00:04:54 INFO mapred.JobClient:  map 93% reduce 12%
+14/06/17 00:06:32 INFO mapred.JobClient:  map 94% reduce 12%
+14/06/17 00:07:58 INFO mapred.JobClient:  map 95% reduce 12%
+14/06/17 00:08:02 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000001_0, Status : FAILED
+14/06/17 00:09:38 INFO mapred.JobClient:  map 96% reduce 12%
+14/06/17 00:11:11 INFO mapred.JobClient:  map 97% reduce 12%
+14/06/17 00:12:55 INFO mapred.JobClient:  map 98% reduce 12%
+14/06/17 00:14:41 INFO mapred.JobClient:  map 99% reduce 12%
+14/06/17 00:15:20 INFO mapred.JobClient:  map 99% reduce 13%
+14/06/17 00:16:43 INFO mapred.JobClient:  map 100% reduce 13%
+14/06/17 00:17:03 INFO mapred.JobClient:  map 100% reduce 14%
+14/06/17 00:17:05 INFO mapred.JobClient:  map 100% reduce 15%
+14/06/17 00:17:18 INFO mapred.JobClient:  map 100% reduce 16%
+14/06/17 00:17:24 INFO mapred.JobClient:  map 100% reduce 17%
+14/06/17 00:17:30 INFO mapred.JobClient:  map 100% reduce 18%
+14/06/17 00:17:42 INFO mapred.JobClient:  map 100% reduce 19%
+14/06/17 00:17:50 INFO mapred.JobClient:  map 100% reduce 20%
+14/06/17 00:17:56 INFO mapred.JobClient:  map 100% reduce 21%
+14/06/17 00:18:05 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000040_0, Status : FAILED
+Error: java.io.IOException: No queda espacio en el dispositivo
+	at java.io.FileOutputStream.writeBytes(Native Method)
+	at java.io.FileOutputStream.write(FileOutputStream.java:345)
+	at org.apache.hadoop.fs.RawLocalFileSystem$LocalFSFileOutputStream.write(RawLocalFileSystem.java:203)
+	at java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:82)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:126)
+	at org.apache.hadoop.fs.FSDataOutputStream$PositionCache.write(FSDataOutputStream.java:49)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at org.apache.hadoop.mapred.IFileOutputStream.write(IFileOutputStream.java:84)
+	at org.apache.hadoop.fs.FSDataOutputStream$PositionCache.write(FSDataOutputStream.java:49)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at org.apache.hadoop.mapred.IFile$Writer.append(IFile.java:218)
+	at org.apache.hadoop.mapred.Merger.writeFile(Merger.java:157)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier$LocalFSMerger.run(ReduceTask.java:2711)
+
+14/06/17 00:18:05 WARN mapred.JobClient: Error reading task outputhttp://hadoop-25:50060/tasklog?plaintext=true&attemptid=attempt_201406131535_0050_r_000040_0&filter=stdout
+14/06/17 00:18:06 WARN mapred.JobClient: Error reading task outputhttp://hadoop-25:50060/tasklog?plaintext=true&attemptid=attempt_201406131535_0050_r_000040_0&filter=stderr
+14/06/17 00:18:10 INFO mapred.JobClient:  map 100% reduce 22%
+14/06/17 00:18:22 INFO mapred.JobClient:  map 100% reduce 23%
+14/06/17 00:18:29 INFO mapred.JobClient:  map 100% reduce 24%
+14/06/17 00:18:40 INFO mapred.JobClient:  map 100% reduce 25%
+14/06/17 00:18:54 INFO mapred.JobClient:  map 100% reduce 26%
+14/06/17 00:19:13 INFO mapred.JobClient:  map 100% reduce 27%
+14/06/17 00:19:40 INFO mapred.JobClient:  map 100% reduce 28%
+14/06/17 00:20:15 INFO mapred.JobClient:  map 100% reduce 29%
+14/06/17 00:21:14 INFO mapred.JobClient:  map 100% reduce 30%
+14/06/17 00:22:11 INFO mapred.JobClient:  map 100% reduce 31%
+14/06/17 00:23:18 INFO mapred.JobClient:  map 100% reduce 32%
+14/06/17 00:24:28 INFO mapred.JobClient:  map 100% reduce 33%
+14/06/17 00:25:47 INFO mapred.JobClient:  map 100% reduce 34%
+14/06/17 00:27:09 INFO mapred.JobClient:  map 100% reduce 35%
+14/06/17 00:28:47 INFO mapred.JobClient:  map 100% reduce 36%
+14/06/17 00:30:43 INFO mapred.JobClient:  map 100% reduce 37%
+14/06/17 00:32:52 INFO mapred.JobClient:  map 100% reduce 38%
+14/06/17 00:35:00 INFO mapred.JobClient:  map 100% reduce 39%
+14/06/17 00:37:16 INFO mapred.JobClient:  map 100% reduce 40%
+14/06/17 00:39:28 INFO mapred.JobClient:  map 100% reduce 41%
+14/06/17 00:41:01 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000041_0, Status : FAILED
+java.io.IOException: Task: attempt_201406131535_0050_r_000041_0 - The reduce copier failed
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:390)
+	at org.apache.hadoop.mapred.Child$4.run(Child.java:255)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.mapred.Child.main(Child.java:249)
+Caused by: org.apache.hadoop.util.DiskChecker$DiskErrorException: Could not find any valid local directory for file:/scratch/hadoop/mapred/local/taskTracker/hadoop/jobcache/job_201406131535_0050/attempt_201406131535_0050_r_000041_0/output/map_2031.out
+	at org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext.getLocalPathForWrite(LocalDirAllocator.java:381)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:146)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:127)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier$LocalFSMerger.run(ReduceTask.java:2690)
+
+14/06/17 00:41:57 INFO mapred.JobClient:  map 100% reduce 42%
+14/06/17 00:44:31 INFO mapred.JobClient:  map 100% reduce 43%
+14/06/17 00:46:41 INFO mapred.JobClient:  map 100% reduce 44%
+14/06/17 00:49:34 INFO mapred.JobClient:  map 100% reduce 45%
+14/06/17 00:51:59 INFO mapred.JobClient:  map 100% reduce 46%
+14/06/17 00:53:38 INFO mapred.JobClient:  map 100% reduce 47%
+14/06/17 00:53:50 INFO mapred.JobClient:  map 100% reduce 48%
+14/06/17 00:55:56 INFO mapred.JobClient:  map 100% reduce 49%
+14/06/17 00:56:38 INFO mapred.JobClient:  map 100% reduce 50%
+14/06/17 00:57:15 INFO mapred.JobClient:  map 100% reduce 51%
+14/06/17 00:58:24 INFO mapred.JobClient:  map 100% reduce 52%
+14/06/17 00:59:23 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000066_0, Status : FAILED
+java.io.IOException: Task: attempt_201406131535_0050_r_000066_0 - The reduce copier failed
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:390)
+	at org.apache.hadoop.mapred.Child$4.run(Child.java:255)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.mapred.Child.main(Child.java:249)
+Caused by: org.apache.hadoop.util.DiskChecker$DiskErrorException: Could not find any valid local directory for file:/scratch/hadoop/mapred/local/taskTracker/hadoop/jobcache/job_201406131535_0050/attempt_201406131535_0050_r_000066_0/output/map_2031.out
+	at org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext.getLocalPathForWrite(LocalDirAllocator.java:381)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:146)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:127)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier$LocalFSMerger.run(ReduceTask.java:2690)
+
+14/06/17 00:59:24 INFO mapred.JobClient:  map 100% reduce 53%
+14/06/17 01:00:12 INFO mapred.JobClient:  map 100% reduce 54%
+14/06/17 01:01:10 INFO mapred.JobClient:  map 100% reduce 55%
+14/06/17 01:02:28 INFO mapred.JobClient:  map 100% reduce 56%
+14/06/17 01:03:44 INFO mapred.JobClient:  map 100% reduce 57%
+14/06/17 01:05:30 INFO mapred.JobClient:  map 100% reduce 58%
+14/06/17 01:06:57 INFO mapred.JobClient:  map 100% reduce 59%
+14/06/17 01:08:18 INFO mapred.JobClient:  map 100% reduce 60%
+14/06/17 01:10:12 INFO mapred.JobClient:  map 100% reduce 61%
+14/06/17 01:12:18 INFO mapred.JobClient:  map 100% reduce 62%
+14/06/17 01:14:41 INFO mapred.JobClient:  map 100% reduce 63%
+14/06/17 01:16:47 INFO mapred.JobClient:  map 100% reduce 64%
+14/06/17 01:19:31 INFO mapred.JobClient:  map 100% reduce 65%
+14/06/17 01:19:57 INFO mapred.JobClient:  map 100% reduce 66%
+14/06/17 01:21:27 INFO mapred.JobClient:  map 100% reduce 67%
+14/06/17 01:22:27 INFO mapred.JobClient:  map 100% reduce 68%
+14/06/17 01:23:42 INFO mapred.JobClient:  map 100% reduce 69%
+14/06/17 01:24:40 INFO mapred.JobClient:  map 100% reduce 70%
+14/06/17 01:25:26 INFO mapred.JobClient:  map 100% reduce 71%
+14/06/17 01:26:07 INFO mapred.JobClient:  map 100% reduce 72%
+14/06/17 01:27:02 INFO mapred.JobClient:  map 100% reduce 73%
+14/06/17 01:27:13 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000078_0, Status : FAILED
+java.io.IOException: Task: attempt_201406131535_0050_r_000078_0 - The reduce copier failed
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:390)
+	at org.apache.hadoop.mapred.Child$4.run(Child.java:255)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.mapred.Child.main(Child.java:249)
+Caused by: org.apache.hadoop.util.DiskChecker$DiskErrorException: Could not find any valid local directory for file:/scratch/hadoop/mapred/local/taskTracker/hadoop/jobcache/job_201406131535_0050/attempt_201406131535_0050_r_000078_0/output/map_3344.out
+	at org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext.getLocalPathForWrite(LocalDirAllocator.java:381)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:146)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:127)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier$LocalFSMerger.run(ReduceTask.java:2690)
+
+14/06/17 01:27:35 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000077_0, Status : FAILED
+org.apache.hadoop.util.DiskChecker$DiskErrorException: Could not find any valid local directory for attempt_201406131535_0050_r_000077_0/intermediate.1
+	at org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext.getLocalPathForWrite(LocalDirAllocator.java:381)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:146)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:127)
+	at org.apache.hadoop.mapred.Merger$MergeQueue.merge(Merger.java:510)
+	at org.apache.hadoop.mapred.Merger.merge(Merger.java:142)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier.createKVIterator(ReduceTask.java:2539)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier.access$400(ReduceTask.java:661)
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:399)
+	at org.apache.hadoop.mapred.Child$4.run(Child.java:255)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.mapred.Child.main(Child.java:249)
+
+14/06/17 01:28:28 INFO mapred.JobClient:  map 100% reduce 74%
+14/06/17 01:29:39 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000066_1, Status : FAILED
+Error: java.io.IOException: No queda espacio en el dispositivo
+	at java.io.FileOutputStream.writeBytes(Native Method)
+	at java.io.FileOutputStream.write(FileOutputStream.java:345)
+	at org.apache.hadoop.fs.RawLocalFileSystem$LocalFSFileOutputStream.write(RawLocalFileSystem.java:203)
+	at java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:82)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:126)
+	at org.apache.hadoop.fs.FSDataOutputStream$PositionCache.write(FSDataOutputStream.java:49)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at org.apache.hadoop.mapred.IFileOutputStream.write(IFileOutputStream.java:84)
+	at org.apache.hadoop.fs.FSDataOutputStream$PositionCache.write(FSDataOutputStream.java:49)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at org.apache.hadoop.mapred.IFile$Writer.append(IFile.java:218)
+	at org.apache.hadoop.mapred.Merger.writeFile(Merger.java:157)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier$LocalFSMerger.run(ReduceTask.java:2711)
+
+14/06/17 01:30:17 INFO mapred.JobClient:  map 100% reduce 75%
+14/06/17 01:32:28 INFO mapred.JobClient:  map 100% reduce 76%
+14/06/17 01:33:44 INFO mapred.JobClient:  map 100% reduce 77%
+14/06/17 01:34:29 INFO mapred.JobClient:  map 100% reduce 78%
+14/06/17 01:35:48 INFO mapred.JobClient:  map 100% reduce 79%
+14/06/17 01:36:38 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000082_0, Status : FAILED
+Error: java.io.IOException: No queda espacio en el dispositivo
+	at java.io.FileOutputStream.writeBytes(Native Method)
+	at java.io.FileOutputStream.write(FileOutputStream.java:345)
+	at org.apache.hadoop.fs.RawLocalFileSystem$LocalFSFileOutputStream.write(RawLocalFileSystem.java:203)
+	at java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:82)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:126)
+	at org.apache.hadoop.fs.FSDataOutputStream$PositionCache.write(FSDataOutputStream.java:49)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at org.apache.hadoop.mapred.IFileOutputStream.write(IFileOutputStream.java:84)
+	at org.apache.hadoop.fs.FSDataOutputStream$PositionCache.write(FSDataOutputStream.java:49)
+	at java.io.DataOutputStream.write(DataOutputStream.java:107)
+	at org.apache.hadoop.mapred.IFile$Writer.append(IFile.java:218)
+	at org.apache.hadoop.mapred.Merger.writeFile(Merger.java:157)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier$LocalFSMerger.run(ReduceTask.java:2711)
+
+14/06/17 01:38:05 INFO mapred.JobClient:  map 100% reduce 80%
+14/06/17 01:39:44 INFO mapred.JobClient:  map 100% reduce 81%
+14/06/17 01:40:41 INFO mapred.JobClient:  map 100% reduce 82%
+14/06/17 01:41:46 INFO mapred.JobClient:  map 100% reduce 83%
+14/06/17 01:42:33 INFO mapred.JobClient:  map 100% reduce 84%
+14/06/17 01:44:35 INFO mapred.JobClient:  map 100% reduce 85%
+14/06/17 01:46:18 INFO mapred.JobClient:  map 100% reduce 86%
+14/06/17 01:47:53 INFO mapred.JobClient:  map 100% reduce 87%
+14/06/17 01:50:40 INFO mapred.JobClient:  map 100% reduce 88%
+14/06/17 01:52:35 INFO mapred.JobClient:  map 100% reduce 89%
+14/06/17 01:55:05 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000090_0, Status : FAILED
+java.io.IOException: Task: attempt_201406131535_0050_r_000090_0 - The reduce copier failed
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:390)
+	at org.apache.hadoop.mapred.Child$4.run(Child.java:255)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.mapred.Child.main(Child.java:249)
+Caused by: org.apache.hadoop.util.DiskChecker$DiskErrorException: Could not find any valid local directory for file:/scratch/hadoop/mapred/local/taskTracker/hadoop/jobcache/job_201406131535_0050/attempt_201406131535_0050_r_000090_0/output/map_3675.out
+	at org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext.getLocalPathForWrite(LocalDirAllocator.java:381)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:146)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:127)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier$LocalFSMerger.run(ReduceTask.java:2690)
+
+14/06/17 01:55:06 INFO mapred.JobClient:  map 100% reduce 90%
+14/06/17 01:57:09 INFO mapred.JobClient:  map 100% reduce 91%
+14/06/17 01:57:13 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000078_1, Status : FAILED
+java.io.IOException: Task: attempt_201406131535_0050_r_000078_1 - The reduce copier failed
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:390)
+	at org.apache.hadoop.mapred.Child$4.run(Child.java:255)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.mapred.Child.main(Child.java:249)
+Caused by: org.apache.hadoop.util.DiskChecker$DiskErrorException: Could not find any valid local directory for file:/scratch/hadoop/mapred/local/taskTracker/hadoop/jobcache/job_201406131535_0050/attempt_201406131535_0050_r_000078_1/output/map_3853.out
+	at org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext.getLocalPathForWrite(LocalDirAllocator.java:381)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:146)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:127)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier$LocalFSMerger.run(ReduceTask.java:2690)
+
+14/06/17 01:58:53 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000077_1, Status : FAILED
+org.apache.hadoop.util.DiskChecker$DiskErrorException: Could not find any valid local directory for attempt_201406131535_0050_r_000077_1/intermediate.1
+	at org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext.getLocalPathForWrite(LocalDirAllocator.java:381)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:146)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:127)
+	at org.apache.hadoop.mapred.Merger$MergeQueue.merge(Merger.java:510)
+	at org.apache.hadoop.mapred.Merger.merge(Merger.java:142)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier.createKVIterator(ReduceTask.java:2539)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier.access$400(ReduceTask.java:661)
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:399)
+	at org.apache.hadoop.mapred.Child$4.run(Child.java:255)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.mapred.Child.main(Child.java:249)
+
+14/06/17 02:00:19 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000096_0, Status : FAILED
+org.apache.hadoop.util.DiskChecker$DiskErrorException: Could not find any valid local directory for attempt_201406131535_0050_r_000096_0/intermediate.1
+	at org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext.getLocalPathForWrite(LocalDirAllocator.java:381)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:146)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:127)
+	at org.apache.hadoop.mapred.Merger$MergeQueue.merge(Merger.java:510)
+	at org.apache.hadoop.mapred.Merger.merge(Merger.java:142)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier.createKVIterator(ReduceTask.java:2539)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier.access$400(ReduceTask.java:661)
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:399)
+	at org.apache.hadoop.mapred.Child$4.run(Child.java:255)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.mapred.Child.main(Child.java:249)
+
+14/06/17 02:02:31 INFO mapred.JobClient:  map 100% reduce 92%
+14/06/17 02:05:21 INFO mapred.JobClient: Task Id : attempt_201406131535_0050_r_000066_2, Status : FAILED
+java.io.IOException: Task: attempt_201406131535_0050_r_000066_2 - The reduce copier failed
+	at org.apache.hadoop.mapred.ReduceTask.run(ReduceTask.java:390)
+	at org.apache.hadoop.mapred.Child$4.run(Child.java:255)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at javax.security.auth.Subject.doAs(Subject.java:415)
+	at org.apache.hadoop.security.UserGroupInformation.doAs(UserGroupInformation.java:1190)
+	at org.apache.hadoop.mapred.Child.main(Child.java:249)
+Caused by: org.apache.hadoop.util.DiskChecker$DiskErrorException: Could not find any valid local directory for file:/scratch/hadoop/mapred/local/taskTracker/hadoop/jobcache/job_201406131535_0050/attempt_201406131535_0050_r_000066_2/output/map_3911.out
+	at org.apache.hadoop.fs.LocalDirAllocator$AllocatorPerContext.getLocalPathForWrite(LocalDirAllocator.java:381)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:146)
+	at org.apache.hadoop.fs.LocalDirAllocator.getLocalPathForWrite(LocalDirAllocator.java:127)
+	at org.apache.hadoop.mapred.ReduceTask$ReduceCopier$LocalFSMerger.run(ReduceTask.java:2690)
+
+14/06/17 02:08:48 INFO mapred.JobClient:  map 100% reduce 93%
+14/06/17 02:13:08 INFO mapred.JobClient:  map 100% reduce 94%
+14/06/17 02:14:59 INFO mapred.JobClient:  map 100% reduce 95%
+14/06/17 02:17:44 INFO mapred.JobClient:  map 100% reduce 96%
+14/06/17 02:22:10 INFO mapred.JobClient:  map 100% reduce 97%
+14/06/17 02:23:56 INFO mapred.JobClient:  map 100% reduce 98%
+14/06/17 02:25:46 INFO mapred.JobClient:  map 100% reduce 99%
+14/06/17 02:26:02 INFO mapred.JobClient:  map 100% reduce 98%
+14/06/17 02:26:05 INFO mapred.JobClient: Job complete: job_201406131535_0050
+14/06/17 02:26:05 INFO mapred.JobClient: Counters: 32
+14/06/17 02:26:05 INFO mapred.JobClient:   Job Counters 
+14/06/17 02:26:05 INFO mapred.JobClient:     Launched reduce tasks=132
+14/06/17 02:26:05 INFO mapred.JobClient:     SLOTS_MILLIS_MAPS=204687268
+14/06/17 02:26:05 INFO mapred.JobClient:     Total time spent by all reduces waiting after reserving slots (ms)=0
+14/06/17 02:26:05 INFO mapred.JobClient:     Total time spent by all maps waiting after reserving slots (ms)=0
+14/06/17 02:26:05 INFO mapred.JobClient:     Rack-local map tasks=588
+14/06/17 02:26:05 INFO mapred.JobClient:     Launched map tasks=4516
+14/06/17 02:26:05 INFO mapred.JobClient:     Data-local map tasks=3928
+14/06/17 02:26:05 INFO mapred.JobClient:     Failed reduce tasks=1
+14/06/17 02:26:05 INFO mapred.JobClient:     SLOTS_MILLIS_REDUCES=446279083
+14/06/17 02:26:05 INFO mapred.JobClient:   File Input Format Counters 
+14/06/17 02:26:05 INFO mapred.JobClient:     Bytes Read=600576716800
+14/06/17 02:26:05 INFO mapred.JobClient:   File Output Format Counters 
+14/06/17 02:26:05 INFO mapred.JobClient:     Bytes Written=575897237700
+14/06/17 02:26:05 INFO mapred.JobClient:   FileSystemCounters
+14/06/17 02:26:05 INFO mapred.JobClient:     FILE_BYTES_READ=1983571167488
+14/06/17 02:26:05 INFO mapred.JobClient:     HDFS_BYTES_READ=600577261300
+14/06/17 02:26:05 INFO mapred.JobClient:     FILE_BYTES_WRITTEN=2359791629941
+14/06/17 02:26:05 INFO mapred.JobClient:     HDFS_BYTES_WRITTEN=575897237700
+14/06/17 02:26:05 INFO mapred.JobClient:   Map-Reduce Framework
+14/06/17 02:26:05 INFO mapred.JobClient:     Map output materialized bytes=612002700000
+14/06/17 02:26:05 INFO mapred.JobClient:     Map input records=6000000000
+14/06/17 02:26:05 INFO mapred.JobClient:     Reduce shuffle bytes=587417774454
+14/06/17 02:26:05 INFO mapred.JobClient:     Spilled Records=23132325349
+14/06/17 02:26:05 INFO mapred.JobClient:     Map output bytes=600000000000
+14/06/17 02:26:05 INFO mapred.JobClient:     Total committed heap usage (bytes)=657421049856
+14/06/17 02:26:05 INFO mapred.JobClient:     CPU time spent (ms)=63923790
+14/06/17 02:26:05 INFO mapred.JobClient:     Map input bytes=600000000000
+14/06/17 02:26:05 INFO mapred.JobClient:     SPLIT_RAW_BYTES=544500
+14/06/17 02:26:05 INFO mapred.JobClient:     Combine input records=0
+14/06/17 02:26:05 INFO mapred.JobClient:     Reduce input records=5758972377
+14/06/17 02:26:05 INFO mapred.JobClient:     Reduce input groups=4122430441
+14/06/17 02:26:05 INFO mapred.JobClient:     Combine output records=0
+14/06/17 02:26:05 INFO mapred.JobClient:     Physical memory (bytes) snapshot=898557874176
+14/06/17 02:26:05 INFO mapred.JobClient:     Reduce output records=5758972377
+14/06/17 02:26:05 INFO mapred.JobClient:     Virtual memory (bytes) snapshot=3377412464640
+14/06/17 02:26:05 INFO mapred.JobClient:     Map output records=6000000000
+14/06/17 02:26:05 INFO mapred.JobClient: Job Failed: # of failed Reduce Tasks exceeded allowed limit. FailedCount: 1. LastFailedTask: task_201406131535_0050_r_000066
+java.io.IOException: Job failed!
+	at org.apache.hadoop.mapred.JobClient.runJob(JobClient.java:1357)
+	at org.apache.hadoop.examples.terasort.TeraSort.run(TeraSort.java:248)
+	at org.apache.hadoop.util.ToolRunner.run(ToolRunner.java:65)
+	at org.apache.hadoop.examples.terasort.TeraSort.main(TeraSort.java:257)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.ProgramDriver$ProgramDescription.invoke(ProgramDriver.java:68)
+	at org.apache.hadoop.util.ProgramDriver.driver(ProgramDriver.java:139)
+	at org.apache.hadoop.examples.ExampleDriver.main(ExampleDriver.java:64)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:160)
+
+real	216m16.346s
+user	0m18.138s
+sys	0m4.968s
